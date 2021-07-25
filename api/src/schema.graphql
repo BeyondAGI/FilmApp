@@ -5,7 +5,10 @@ scalar PointInput
 type Film {
     ID: String,
     ProductionYear: Int,
-    TitleSales: String
+    TitleSales: String,
+    TitleDE: String,
+    TitleFR: String,
+    TitleAR: String,
 }
 # type User {
 #   userId: ID!

@@ -46,6 +46,9 @@ const GET_FILM = gql`
       id: ID
       ProductionYear
       TitleSales
+      TitleDE
+      TitleFR
+      TitleAR
     }
   }
 `
@@ -132,6 +135,9 @@ function FilmList(props) {
               </TableCell>
               <TableCell key="ProductionYear">Production Year</TableCell>
               <TableCell key="TitleSales">Title Sales</TableCell>
+              <TableCell key="TitleDE">German Title</TableCell>
+              <TableCell key="TitleFR">French Title</TableCell>
+              <TableCell key="TitleAR">Arabic Title</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -143,6 +149,9 @@ function FilmList(props) {
                   </TableCell>
                   <TableCell>{n.ProductionYear}</TableCell>
                   <TableCell>{n.TitleSales}</TableCell>
+                  <TableCell>{n.TitleDE}</TableCell>
+                  <TableCell>{n.TitleFR}</TableCell>
+                  <TableCell>{n.TitleAR}</TableCell>
                 </TableRow>
               )
             })}
