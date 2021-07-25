@@ -1,5 +1,7 @@
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://grandstack.io/deploy-starter-netlify) [![Deploy to Vercel](https://vercel.com/button)](https://grandstack.io/deploy-starter-vercel) [![Provision Neo4j](https://grandstack.io/img/provision-neo4j.png)](https://sandbox.neo4j.com/?usecase=blank-sandbox)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dfe10488-f0ea-47a3-bc32-e6607076c794/deploy-status)](https://app.netlify.com/sites/nostalgic-bose-bf493c/deploys)
+
 # GRANDstack Starter
 
 ```
