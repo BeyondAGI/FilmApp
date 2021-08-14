@@ -1,100 +1,237 @@
-scalar Point
 scalar DateTime
-scalar PointInput
+scalar Date
+scalar Duration
 
 type Film {
-    ID: String,
-    ProductionYear: Int,
-    TitleSales: String,
-    TitleDE: String,
-    TitleFR: String,
-    TitleAR: String,
+  radiatorID                                 : String
+  titleInternational                         : String   # General Info
+  titleOriginal                              : String
+  titleEN                                    : String
+  titleFR                                    : String
+  titleDE                                    : String
+  titleES                                    : String
+  loglineEN                                  : String
+  loglineFR                                  : String
+  loglineDE                                  : String
+  loglineES                                  : String
+  synopsisShortEN                            : String
+  synopsisShortFR                            : String
+  synopsisShortDE                            : String
+  synopsisShortES                            : String
+  synopsisLongEN                             : String
+  synopsisLongFR                             : String
+  synopsisLongDE                             : String
+  synopsisLongES                             : String
+  duration                                   : Duration
+  productionYear                             : Int
+  productionMonth                            : Int
+  worldPremiereDate                          : Date
+  status                                     : String
+  framerate                                  : String
+  ageRating                                  : String   #  Parental guidance
+  containsNudity                             : Boolean
+  containsViolence                           : Boolean
+  containsDrugUse                            : Boolean
+  iMDBReviews                                : Int      # Reviews
+  rottenTomatoesReviews                      : Int
+  letterboxdReviews                          : Int
+  iMDBRating                                 : Float    # Ratings
+  rottenTomatoesRating                       : Float
+  letterboxdRating                           : Float
+  filmFestivalViewers                        : Int      # Viewers
+  tvStationViewers                           : Int
+  vodViewers                                 : Int
+  boxOffice                                  : Int
+  previewByFilmCriticMagazine                : String   # Press
+  previewByFilmCritic                        : String
+  reviewByFilmCriticMagazine                 : String
+  reviewByFilmCritic                         : String
+  facebookFanPageURL                         : String   # Social media
+  instagramProfileURL                        : String
+  twitterProfileURL                          : String
+  websiteOfficial                            : String   # Links
+  iMDbLink                                   : String
+  tMDBLink                                   : String
+  letterboxdPage                             : String
+  justWatchPage                              : String
+  filmfreewayPage                            : String
+  audioFormat                                : String   # Technical info
+  aspectRatio                                : String
+  masterShootingMedium                       : String
+  masterShootingFormat                       : String
+  cameraUsed                                 : String
+  lensesUsed                                 : String
+  editingSoftwareUsed                        : String
+  threeDSoftwareUsed                         : String
+  vFXSoftwareUsed                            : String
+  animationTechniqueUsed                     : String
+  isFilmhubPosterCreated                     : Boolean  # VOD platforms technical
+  isFilmhubPortraitStillCreated              : Boolean
+  isFilmhubLandscapeStillCreated             : Boolean
+  isFilmhubLandscapeExtra01StillCreated      : Boolean
+  isFilmhubLandscapeExtra02StillCreated      : Boolean
+  isFilmhubLandscapeExtra03StillCreated      : Boolean
+  isFilmhubLandscapeExtra04StillCreated      : Boolean
+  isFilmfriendPortraitCoverCreated           : Boolean
+  isFilmfriendLandscapeCoverCreated          : Boolean
+  isFilmfriendThumbnailCreated               : Boolean
+  isFilmfriendSliderCreated                  : Boolean
+  isFilmfriendBackgroundCreated              : Boolean
+  isFilmfriendMaterialsOkQualityCheckPlatform: Boolean
+  filmhubPosterLocation                      : String
+  filmhubPortraitStillLocation               : String
+  filmhubLandscapeStillLocation              : String
+  filmhubLandscapeExtra01StillLocation       : String
+  filmhubLandscapeExtra02StillLocation       : String
+  filmhubLandscapeExtra03StillLocation       : String
+  filmhubLandscapeExtra04StillLocation       : String
+  filmhubMaterialsOkQualityCheckPlatform     : String
+  filmfriendPortraitCoverLocation            : String
+  filmfriendLandscapeCoverLocation           : String
+  filmfriendThumbnailLocation                : String
+  filmfriendSliderLocation                   : String
+  filmfriendBackgroundLocation               : String
+  vuulrVimeoLinkFilm                         : String   # Platform specific links Vimeo
+  vuulrVimeoLinkTrailer                      : String
+  filmfreewayVimeoLinkFilm                   : String
+  festhomeVimeoLinkFilm                      : String
+  youtubeTrailerFHDRadiatorChannel           : String   # Trailer links
+  youtubeTrailer4KUHDRadiatorChannel         : String
+  vimeoTrailerRadiatorWebsite                : String
+  vimeoTrailerPublic                         : String
+  vimeoScreenerProduction                    : String   # Screener links
+  vimeoScreenerDirector                      : String
+  vimeoScreenerCrew                          : String
+  vimeoScreenerDOP                           : String
+  vimeoScreenerProgrammers                   : String
+  vimeoScreenerBuyers                        : String
+  vimeoScreenerPress                         : String
+  vimeoOnDemandFHD                           : String   # VOD Platforms links
+  vimeoOnDemand4KUHD                         : String
+  amazonUS                                   : String
+  amazonUK                                   : String
+  amazonDE                                   : String
+  amazonES                                   : String
+  tubi                                       : String
+  dindintv                                   : String
+  kisKisKeepItShortEN                        : String
+  kisKisKeepItShortES                        : String
+  kisKisKeepItShortDE                        : String
+  kisKisKeepItShortFR                        : String
+  bekkesShortFilms                           : String
+  wocomoMovies                               : String
+  wocomoHumanity                             : String
+  filmfriend                                 : String
+  amazonIMDBTV                               : String
+  filmzie                                    : String
+  fearless                                   : String
+  overdrive                                  : String
+  kinoscope                                  : String
+  sofytv                                     : String
+  daFilms                                    : String
+  argo                                       : String
+  avaLibrary                                 : String
+  cinesquare                                 : String
+  cinesud                                    : String
+  guideDoc                                   : String
+  soonerBelgium                              : String
+  soonerGermany                              : String
+  criterionCollection                        : String
+  creedGlobalMedia                           : String
+  artexFilm                                  : String
+  cineBooks                                  : String
+  cinetree                                   : String
+  flexNetTv                                  : String
+  filxPremiere                               : String
+  filmocrazy                                 : String
+  filmin                                     : String
+  gayBingeTV                                 : String
+  movieBloc                                  : String
+  submittedToFilmFestivals                   : [FilmFestival!] @relationship(type: "SUBMITTED_TO", direction: OUT) # Relationships [FilmFestival]
+  selectedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "SELECTED_AT", direction: OUT)
+  shortlistedAtFilmFestivals                 : [FilmFestival!] @relationship(type: "SHORTLISTED_AT", direction: OUT)
+  toSubmitToFilmFestivals                    : [FilmFestival!] @relationship(type: "TO_SUBMIT_TO", direction: OUT)
+  notSelectedAtFilmFestivals                 : [FilmFestival!] @relationship(type: "NOT_SELECTED_AT", direction: OUT)
+  screenedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "SCREENED_AT", direction: OUT)
+  awardedAtFilmFestivals                     : [FilmFestival!] @relationship(type: "AWARDED_AT", direction: OUT)
+  proposedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "PROPOSED_TO", direction: OUT)
+  licensedByFilmFestivals                    : [FilmFestival!] @relationship(type: "LICENSED_BY", direction: OUT)
+  dcpSentToFilmFestivals                     : [FilmFestival!] @relationship(type: "DCP_SENT_TO", direction: OUT)
+  appleProres4444FHDSentToFilmFestivals      : [FilmFestival!] @relationship(type: "APPLE_PRORES_4444_FHD_SENT_TO", direction: OUT)
+  appleProres44444KUHDSentToFilmFestivals    : [FilmFestival!] @relationship(type: "APPLE_PRORES_4444_4KUHD_SENT_TO", direction: OUT)
+  h264HQFHDSentToFilmFestivals               : [FilmFestival!] @relationship(type: "H264_HQ_FHD_SENT_TO", direction: OUT)
+  posterSentToFilmFestivals                  : [FilmFestival!] @relationship(type: "POSTER_SENT_TO", direction: OUT)
+  stillsSentToFilmFestivals                  : [FilmFestival!] @relationship(type: "STILLS_SENT_TO", direction: OUT)
+  subtitlesSentToFilmFestivals               : [FilmFestival!] @relationship(type: "SUBTITLES_SENT_TO", direction: OUT)
+  materialsDeliveryOkForFilmFestivals        : [FilmFestival!] @relationship(type: "MATERIALS_DELIVERY_OK_FOR", direction: OUT)
 }
-# type User {
-#   userId: ID!
-#   name: String
-#   reviews: [Review] @relationship(type: "WROTE", direction: OUT)
-#   avgStars: Float
-#     @cypher(
-#       statement: "MATCH (this)-[:WROTE]->(r:Review) RETURN toFloat(avg(r.stars))"
-#     )
-#   numReviews: Int
-#     @cypher(statement: "MATCH (this)-[:WROTE]->(r:Review) RETURN COUNT(r)")
-#   recommendations(first: Int = 3): [Business]
-#     @cypher(
-#       statement: "MATCH (this)-[:WROTE]->(r:Review)-[:REVIEWS]->(:Business)<-[:REVIEWS]-(:Review)<-[:WROTE]-(:User)-[:WROTE]->(:Review)-[:REVIEWS]->(rec:Business) WHERE NOT EXISTS( (this)-[:WROTE]->(:Review)-[:REVIEWS]->(rec) ) WITH rec, COUNT(*) AS num ORDER BY num DESC LIMIT $first RETURN rec"
-#     )
-# }
 
-# type Business {
-#   businessId: ID!
-#   name: String!
-#   address: String
-#   city: String
-#   state: String
-#   location: Point
-#   avgStars: Float
-#     @cypher(
-#       statement: "MATCH (this)<-[:REVIEWS]-(r:Review) RETURN coalesce(avg(r.stars),0.0)"
-#     )
-#   reviews: [Review] @relationship(type: "REVIEWS", direction: IN)
-#   categories: [Category] @relationship(type: "IN_CATEGORY", direction: OUT)
-# }
-
-# type Review {
-#   reviewId: ID!
-#   stars: Float
-#   text: String
-#   date: DateTime
-#   business: Business @relationship(type: "REVIEWS", direction: OUT)
-#   user: User @relationship(type: "WROTE", direction: IN)
-# }
-
-# type Category {
-#   name: ID!
-#   businesses: [Business] @relationship(type: "IN_CATEGORY", direction: IN)
-# }
-
-# type Mutation {
-#   mergeBusinessCategory(categories: [String!]!, businessId: ID!): Business
-#     @cypher(
-#       statement: "MATCH (b:Business {businessId: $businessId}) UNWIND $categories AS cat MERGE (c:Category {name: cat}) MERGE (b)-[:IN_CATEGORY]->(c) RETURN b"
-#     )
-#   mergeUser(name: String!, userId: ID!): User
-#     @cypher(
-#       statement: """
-#       MERGE (u:User {userId: $userId})
-#       ON CREATE SET u.name = $name
-#       RETURN u
-#       """
-#     )
-#   mergeBusiness(
-#     businessId: ID!
-#     name: String!
-#     address: String!
-#     city: String!
-#     state: String!
-#     latitude: Float!
-#     longitude: Float!
-#   ): Business
-#     @cypher(
-#       statement: """
-#       MERGE (b:Business {businessId: $businessId})
-#       ON CREATE SET b.name = $name,
-#                     b.address = $address,
-#                     b.city = $city,
-#                     b.state = $state,
-#                     b.location = Point({latitude: $latitude, longitude: $longitude})
-#       RETURN b
-#       """
-#     )
-# }
+type FilmFestival {
+  radiatorID                      : String
+  nameInternational               : String   # General info
+  nameOriginal                    : String
+  address                         : String
+  about                           : String
+  email                           : String
+  telephone                       : String
+  dateStart                       : Date
+  dateEnd                         : Date
+  isFIAPFAccredited               : Boolean
+  isAcademyAccredited             : Boolean
+  isEFAAccredited                 : Boolean
+  isBaftaAccredited               : Boolean
+  isGoyaAccredited                : Boolean
+  isMeliesAccredited              : Boolean
+  isCanandianScreenGuildAccredited: Boolean
+  isEAAAccredited                 : Boolean
+  isFriends                       : Boolean
+  isPartner                       : Boolean
+  level                           : String
+  foundingYear                    : Int
+  locatedInCountry                : String
+  takesPlaceInCity                : String
+  acceptsFilmLenghts              : String
+  acceptsFilmGenre01              : String
+  acceptsFilmGenre02              : String
+  acceptsFilmGenre03              : String
+  deadlineMonth                   : String
+  organisers                      : String
+  directors                       : String
+  seniorProgrammer01              : String
+  seniorProgrammer02              : String
+  seniorProgrammer03              : String
+  shortsProgrammer01              : String
+  shortsProgrammer02              : String
+  awards                          : String
+  rulesAndRegulations             : String
+  premiereRequirement             : String
+  filmAge                         : String
+  websiteMain                     : String   # Links
+  facebookPage                    : String
+  instagramProfile                : String
+  twitterProfile                  : String
+  cinandoProfile                  : String
+  iMDBProfile                     : String
+  filmfreewayLink                 : String
+  submissionPageOriginal          : String   # Submission details
+  submissionPageFilmfreeway       : String
+  submissionDateEarly             : DateTime
+  submissionDateRegular           : DateTime
+  submissionDateLate              : DateTime
+  submissionFeeEarly              : Float
+  submissionFeeRegular            : Float
+  submissionFeesLate              : Float
+  submissionRegulations           : String
+  venue01                         : String   # Venues
+  venue02                         : String
+  venue03                         : String
+  venue04                         : String
+  venue05                         : String
+  selectionLaurel                 : String   # Laurels
+  awardLaurel                     : String
+}
 
 type Query {
-  filmCount: Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
-  # userCount: Int! @cypher(statement: "MATCH (u:User) RETURN COUNT(u)")
-  # ratingsCount: [RatingCount]
-  #   @cypher(
-  #     statement: "MATCH (r:Review) WITH r.stars AS stars, COUNT(*) AS count ORDER BY stars RETURN {stars: stars, count: count}"
-  #   )
+  filmCount        : Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
+  filmFestivalCount: Int! @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
 }

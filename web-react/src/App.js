@@ -3,7 +3,7 @@ import React from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import FilmList from './components/FilmList'
-
+import FilmFestivalList from './components/FilmFestivalList'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -33,10 +33,10 @@ import Dashboard from './components/Dashboard'
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant = "body2" color = "textSecondary" align = "center">
       {'Copyright © '}
-      <MUILink color="inherit" href="https://grandstack.io/">
-        Your GRANDstack App Name Here
+      <MUILink color = "inherit" href = "https://grandstack.io/">
+        Radiator IP Sales
       </MUILink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -51,27 +51,27 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,   // keep right padding when drawer closed
   },
   toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
+    display       : 'flex',
+    alignItems    : 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding       : '0 8px',
     ...theme.mixins.toolbar,
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex    : theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
+      easing  : theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width     : `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
+      easing  : theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
@@ -85,39 +85,39 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerPaper: {
-    position: 'relative',
+    position  : 'relative',
     whiteSpace: 'nowrap',
-    width: drawerWidth,
+    width     : drawerWidth,
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
+      easing  : theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerPaperClose: {
-    overflowX: 'hidden',
+    overflowX : 'hidden',
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
+      easing  : theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
+    width                       : theme.spacing(7),
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
   },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
+  content     : {
     flexGrow: 1,
-    height: '100vh',
+    height  : '100vh',
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop   : theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
   paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
+    padding      : theme.spacing(2),
+    display      : 'flex',
+    overflow     : 'auto',
     flexDirection: 'column',
   },
   fixedHeight: {
@@ -125,17 +125,17 @@ const useStyles = makeStyles((theme) => ({
   },
   navLink: {
     textDecoration: 'none',
-    color: 'inherit',
+    color         : 'inherit',
   },
   appBarImage: {
-    maxHeight: '75px',
+    maxHeight   : '45px',
     paddingRight: '20px',
   },
 }))
 
 export default function App() {
-  const classes = useStyles()
-  const [open, setOpen] = React.useState(true)
+  const classes          = useStyles()
+  const [open, setOpen]  = React.useState(false)
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -145,19 +145,19 @@ export default function App() {
 
   return (
     <Router>
-      <div className={classes.root}>
+      <div className = {classes.root}>
         <CssBaseline />
         <AppBar
-          position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
+          position  = "absolute"
+          className = {clsx(classes.appBar, open && classes.appBarShift)}
         >
-          <Toolbar className={classes.toolbar}>
+          <Toolbar className = {classes.toolbar}>
             <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
+              edge       = "start"
+              color      = "inherit"
+              aria-label = "open drawer"
+              onClick    = {handleDrawerOpen}
+              className  = {clsx(
                 classes.menuButton,
                 open && classes.menuButtonHidden
               )}
@@ -165,64 +165,73 @@ export default function App() {
               <MenuIcon />
             </IconButton>
             <img
-              className={classes.appBarImage}
-              src="img/grandstack.png"
-              alt="GRANDstack logo"
+              className = {classes.appBarImage}
+              src       = "img/logo_radiator.svg"
+              alt       = "Radiator logo"
             />
             <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
+              component = "h1"
+              variant   = "h6"
+              color     = "inherit"
               noWrap
-              className={classes.title}
+              className = {classes.title}
             >
-              Welcome To GRANDstack App
+              WebApp 2021
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="permanent"
-          classes={{
+          variant = "permanent"
+          classes = {{
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
           }}
-          open={open}
+          open = {open}
         >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
+          <div        className = {classes.toolbarIcon}>
+          <IconButton onClick   = {handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
           <List>
-            <Link to="/" className={classes.navLink}>
+            <Link to = "/" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary = "Dashboard" />
               </ListItem>
             </Link>
 
-            <Link to="/films" className={classes.navLink}>
+            <Link to = "/films" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary="Films" />
+                <ListItemText primary = "Films List" />
+              </ListItem>
+            </Link>
+            <Link to = "/filmfestivals" className = {classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary = "Film Festivals List" />
               </ListItem>
             </Link>
           </List>
           <Divider />
         </Drawer>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
+        <main      className = {classes.content}>
+        <div       className = {classes.appBarSpacer} />
+        <Container maxWidth  = {false} className = {classes.container}>
             <Switch>
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/films" component={FilmList} />
+              <Route exact path = "/" component              = {Dashboard} />
+              <Route exact path = "/films" component         = {FilmList} />
+              <Route exact path = "/filmFestivals" component = {FilmFestivalList} />
             </Switch>
 
-            <Box pt={4}>
+            <Box pt = {4}>
               <Copyright />
             </Box>
           </Container>
