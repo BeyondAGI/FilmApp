@@ -1,0 +1,13 @@
+
+{
+    "data": [
+        {"name": "All"},
+        {"name": "Fiction"},
+        {"name": "Documentary"},
+        {"name": "Animation"},
+        {"name": "Experimental"},
+        {"name": "Fantastic"},
+        {"name": "Lgb&t"}
+    ]
+}
+    

@@ -2,8 +2,7 @@ import React from 'react'
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import FilmList from './components/FilmList'
-import FilmFestivalList from './components/FilmFestivalList'
+import FilmList from './routes/Film'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -27,15 +26,17 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
-  People as PeopleIcon,
 } from '@material-ui/icons'
-import Dashboard from './components/Dashboard'
+import HighQualityTwoToneIcon from '@material-ui/icons/HighQualityTwoTone';
+import StorefrontTwoToneIcon from '@material-ui/icons/StorefrontTwoTone';
+import Dashboard from './routes/Dashboard'
+import FilmFestival from './routes/FilmFestival'
 
 function Copyright() {
   return (
     <Typography variant = "body2" color = "textSecondary" align = "center">
       {'Copyright © '}
-      <MUILink color = "inherit" href = "https://grandstack.io/">
+      <MUILink color = "inherit">
         Radiator IP Sales
       </MUILink>{' '}
       {new Date().getFullYear()}
@@ -107,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content     : {
     flexGrow: 1,
-    height  : '100vh',
+    // height  : '100vh',
     overflow: 'auto',
   },
   container: {
@@ -202,19 +203,18 @@ export default function App() {
                 <ListItemText primary = "Dashboard" />
               </ListItem>
             </Link>
-
             <Link to = "/films" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <PeopleIcon />
+                  <HighQualityTwoToneIcon />
                 </ListItemIcon>
                 <ListItemText primary = "Films List" />
               </ListItem>
             </Link>
-            <Link to = "/filmfestivals" className = {classes.navLink}>
+            <Link to = "/FilmFestival" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <PeopleIcon />
+                  <StorefrontTwoToneIcon />
                 </ListItemIcon>
                 <ListItemText primary = "Film Festivals List" />
               </ListItem>
@@ -228,7 +228,9 @@ export default function App() {
             <Switch>
               <Route exact path = "/" component              = {Dashboard} />
               <Route exact path = "/films" component         = {FilmList} />
-              <Route exact path = "/filmFestivals" component = {FilmFestivalList} />
+              {/* <Route exact path = "/filmFestivals" component = {FilmFestivalList} />
+              <Route exact path = "/demo" component = {DataTableCrudDemo} /> */}
+              <Route exact path = "/FilmFestival" component = {FilmFestival} />
             </Switch>
 
             <Box pt = {4}>

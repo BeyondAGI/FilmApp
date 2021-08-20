@@ -22,10 +22,14 @@
   },
   "plugins": [
     "react",
-    "prettier"
+    "prettier",
+    "react-hooks"
   ],
   "rules": {
-    "prettier/prettier": "warn",
-    "react/prop-types": "off"
+    "prettier/prettier": "off",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "no-unused-vars": "off",
+    "react-hooks/exhaustive-deps": "warn" // added "react-hooks/exhaustive-deps"
   }
 }

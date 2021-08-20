@@ -1,0 +1,1 @@
+export const IS_DEBUG_FORM_ENABLED = false

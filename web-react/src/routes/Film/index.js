@@ -13,7 +13,7 @@ import {
   TextField,
 } from '@material-ui/core'
 
-import Title from './Title'
+import Title from '../../components/Title'
 
 const styles = (theme) => ({
   root: {

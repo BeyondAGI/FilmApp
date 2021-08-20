@@ -1,0 +1,12 @@
+
+{
+    "data": [
+        {"name": "World Premier"},
+        {"name": "International Premier"},
+        {"name": "National Premier"},
+        {"name": "Regional Premier"},
+        {"name": "City Premier"},
+        {"name": "None"}
+    ]
+}
+    

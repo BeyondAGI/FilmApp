@@ -2,8 +2,16 @@ scalar DateTime
 scalar Date
 scalar Duration
 
+# To Add manually in Neo4j
+# CREATE CONSTRAINT ON (i:Film) ASSERT i.radiatorID IS UNIQUE;
+# CREATE CONSTRAINT ON (i:FilmFestival) ASSERT i.radiatorID IS UNIQUE;
+
+"""Indicates that the field is the unique identifier for the object type, and additionally enables the autogeneration of IDs."""
+directive @id(autogenerate: Boolean! = true) on FIELD_DEFINITION
+
 type Film {
-  radiatorID                                 : String
+  id                                         : ID! @id(autogenerate: true)
+  radiatorID                                 : String!
   titleInternational                         : String   # General Info
   titleOriginal                              : String
   titleEN                                    : String
@@ -167,8 +175,9 @@ type Film {
 }
 
 type FilmFestival {
-  radiatorID                      : String
-  nameInternational               : String   # General info
+  id                              : ID! @id(autogenerate: true)
+  radiatorID                      : ID!
+  nameInternational               : String!   # General info
   nameOriginal                    : String
   address                         : String
   about                           : String
@@ -176,7 +185,12 @@ type FilmFestival {
   telephone                       : String
   dateStart                       : Date
   dateEnd                         : Date
-  isFIAPFAccredited               : Boolean
+  level                           : String
+  foundingYear                    : Int
+  locatedInCountry                : String
+  takesPlaceInCity                : String
+  awards                          : String
+  isFIAPFAccredited               : Boolean   # Accreditations
   isAcademyAccredited             : Boolean
   isEFAAccredited                 : Boolean
   isBaftaAccredited               : Boolean
@@ -186,26 +200,21 @@ type FilmFestival {
   isEAAAccredited                 : Boolean
   isFriends                       : Boolean
   isPartner                       : Boolean
-  level                           : String
-  foundingYear                    : Int
-  locatedInCountry                : String
-  takesPlaceInCity                : String
-  acceptsFilmLenghts              : String
+  acceptsFilmLenghts              : String    # Film Requirements
   acceptsFilmGenre01              : String
   acceptsFilmGenre02              : String
   acceptsFilmGenre03              : String
   deadlineMonth                   : String
-  organisers                      : String
+  rulesAndRegulations             : String
+  premiereRequirement             : String
+  filmAge                         : String
+  organisers                      : String    # Management
   directors                       : String
   seniorProgrammer01              : String
   seniorProgrammer02              : String
   seniorProgrammer03              : String
   shortsProgrammer01              : String
   shortsProgrammer02              : String
-  awards                          : String
-  rulesAndRegulations             : String
-  premiereRequirement             : String
-  filmAge                         : String
   websiteMain                     : String   # Links
   facebookPage                    : String
   instagramProfile                : String
@@ -215,9 +224,9 @@ type FilmFestival {
   filmfreewayLink                 : String
   submissionPageOriginal          : String   # Submission details
   submissionPageFilmfreeway       : String
-  submissionDateEarly             : DateTime
-  submissionDateRegular           : DateTime
-  submissionDateLate              : DateTime
+  submissionDateEarly             : Date
+  submissionDateRegular           : Date
+  submissionDateLate              : Date
   submissionFeeEarly              : Float
   submissionFeeRegular            : Float
   submissionFeesLate              : Float
