@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import FilmList from './routes/Film'
+import Film from './routes/Film'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -25,12 +25,14 @@ import { Link } from 'react-router-dom'
 import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
-  Dashboard as DashboardIcon,
 } from '@material-ui/icons'
-import HighQualityTwoToneIcon from '@material-ui/icons/HighQualityTwoTone';
-import StorefrontTwoToneIcon from '@material-ui/icons/StorefrontTwoTone';
+import HdIcon from '@material-ui/icons/Hd';
+import CakeIcon from '@material-ui/icons/Cake';
+import TimelineIcon from '@material-ui/icons/Timeline';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Dashboard from './routes/Dashboard'
 import FilmFestival from './routes/FilmFestival'
+import DevTask from './routes/DevTask'
 
 function Copyright() {
   return (
@@ -198,25 +200,33 @@ export default function App() {
             <Link to = "/" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <DashboardIcon />
+                  <TimelineIcon />
                 </ListItemIcon>
                 <ListItemText primary = "Dashboard" />
               </ListItem>
             </Link>
-            <Link to = "/films" className = {classes.navLink}>
+            <Link to = "/Films" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <HighQualityTwoToneIcon />
+                  <HdIcon />
                 </ListItemIcon>
                 <ListItemText primary = "Films List" />
               </ListItem>
             </Link>
-            <Link to = "/FilmFestival" className = {classes.navLink}>
+            <Link to = "/FilmFestivals" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <StorefrontTwoToneIcon />
+                  <CakeIcon />
                 </ListItemIcon>
                 <ListItemText primary = "Film Festivals List" />
+              </ListItem>
+            </Link>
+            <Link to = "/DevTasks" className = {classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PlaylistAddCheckIcon />
+                </ListItemIcon>
+                <ListItemText primary = "Dev Tasks List" />
               </ListItem>
             </Link>
           </List>
@@ -227,10 +237,11 @@ export default function App() {
         <Container maxWidth  = {false} className = {classes.container}>
             <Switch>
               <Route exact path = "/" component              = {Dashboard} />
-              <Route exact path = "/films" component         = {FilmList} />
+              <Route exact path = "/Films" component         = {Film} />
               {/* <Route exact path = "/filmFestivals" component = {FilmFestivalList} />
               <Route exact path = "/demo" component = {DataTableCrudDemo} /> */}
-              <Route exact path = "/FilmFestival" component = {FilmFestival} />
+              <Route exact path = "/FilmFestivals" component = {FilmFestival} />
+              <Route exact path = "/DevTasks" component = {DevTask} />
             </Switch>
 
             <Box pt = {4}>

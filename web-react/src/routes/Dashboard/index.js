@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 // import RatingsChart from './RatingsChart'
 import FilmCount from './FilmCount'
+import FilmFestivalCount from './FilmFestivalCount'
 // import RecentReviews from './RecentReviews'
 export default function Dashboard() {
   const theme = useTheme()
@@ -32,9 +33,9 @@ export default function Dashboard() {
       <Grid container spacing={4}>
         {/* Ratings Chart */}
         <Grid item xs={12} md={8} lg={7}>
-          {/* <Paper className={fixedHeightPaper}>
-            <RatingsChart />
-          </Paper> */}
+          <Paper className={fixedHeightPaper}>
+          <FilmFestivalCount />
+          </Paper>
         </Grid>
         {/* User Count */}
         <Grid item xs={12} md={4} lg={5}>

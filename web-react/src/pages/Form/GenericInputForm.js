@@ -6,51 +6,74 @@ import { Calendar } from 'primereact/calendar'
 import { Checkbox } from 'primereact/checkbox'
 import { classNames } from 'primereact/utils'
 import { Fragment } from 'react'
-import { FieldType } from '../common/enums'
+import { FieldType } from '../../common/enums'
 
 import { InputTextarea } from 'primereact/inputtextarea'
-import { ConvertToUTC } from '../helpers/DateHelper'
-import { OptionListService } from '../services/OptionListService'
-import { DisplayFormikDebugState } from '../helpers/FormikHelper'
-import { IS_DEBUG_FORM_ENABLED } from '../common/constants'
+import { ConvertToUTC } from '../../helpers/DateHelper'
+import { OptionListService } from '../../services/OptionListService'
+import { DisplayFormikDebugState } from '../../helpers/FormikHelper'
+import { IS_DEBUG_FORM_ENABLED } from '../../common/constants'
+import TimePicker from '@material-ui/lab/TimePicker';
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import { TextField } from '@material-ui/core'
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 
 const ToInputField = (col, formik) => {
   // Dropdowns
+  const [aspectRatios, setAspectRatios] = useState([])
   const [countries, setCountries] = useState([])
-  const [filmLengths, setFilmLengths] = useState([])
-  const [filmGenres, setFilmGenres] = useState([])
-  const [premierRequirements, setPremierRequirements] = useState([])
   const [filmAges, setFilmAges] = useState([])
+  const [filmGenres, setFilmGenres] = useState([])
+  const [filmLengths, setFilmLengths] = useState([])
+  const [filmStatuses, setFilmStatuses] = useState([])
+  const [framerates, setFramerates] = useState([])
+  const [premierRequirements, setPremierRequirements] = useState([])
+  const [shootingMediums, setShootingMediums] = useState([])
+
+
 
   const optionListService = new OptionListService()
-
+  useEffect(() => {
+    optionListService.getAspectRatios().then((data) => setAspectRatios(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     optionListService.getCountries().then((data) => setCountries(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    optionListService.getFilmLengths().then((data) => setFilmLengths(data))
+    optionListService.getFilmAges().then((data) => setFilmAges(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
     optionListService.getFilmGenres().then((data) => setFilmGenres(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+  useEffect(() => {
+    optionListService.getFilmLengths().then((data) => setFilmLengths(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    optionListService.getFilmStatuses().then((data) => setFilmStatuses(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    optionListService.getFramerates().then((data) => setFramerates(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     optionListService
       .getPremierRequirements()
       .then((data) => setPremierRequirements(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
-    optionListService.getFilmAges().then((data) => setFilmAges(data))
+    optionListService.getShootingMediums().then((data) => setShootingMediums(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+
   let optionsList = {
+    aspectRatios: aspectRatios,
     countries: countries,
-    filmLengths: filmLengths,
-    filmGenres: filmGenres,
-    premierRequirements: premierRequirements,
     filmAges: filmAges,
+    filmGenres: filmGenres,
+    filmLengths: filmLengths,
+    filmStatuses: filmStatuses,
+    framerates: framerates,
+    premierRequirements: premierRequirements,
+    shootingMediums: shootingMediums
   }
 
   // Don't show hidden fields
@@ -188,7 +211,7 @@ const ToInputField = (col, formik) => {
           {getFormErrorMessage(col.field)}
         </Fragment>
       )
-    case FieldType.FLOAT:
+    case FieldType.FLOAT, FieldType.DURATION:
       return (
         <Fragment>
           <span className="p-float-label">
@@ -200,7 +223,7 @@ const ToInputField = (col, formik) => {
               value={formik.values[col.field]}
               onValueChange={formik.handleChange}
               showButtons
-              buttonLayout="horizontal"
+              // buttonLayout="horizontal"
               className={classNames({
                 'p-invalid': isFormFieldValid(col.field),
               })}
@@ -280,6 +303,7 @@ const ToInputField = (col, formik) => {
         <Fragment>
           <span className="p-float-label">
             <InputText
+            
               id={col.field}
               name={col.field}
               value={formik.values[col.field]}
@@ -328,7 +352,7 @@ const ToInputForm = (cols, formik) => {
   })
 }
 
-export const ToFormPage = (cols, formik) => (
+export const GenericInputForm = (cols, formik) => (
   <div className="form-demo">
     <div className="p-d-flex p-jc-center">
       <div className="card">

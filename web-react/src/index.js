@@ -5,6 +5,8 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_URI || '/graphql',
@@ -21,6 +23,7 @@ const theme = createMuiTheme({
     },
   },
 })
+
 
 const Main = () => (
   <ApolloProvider client={client}>

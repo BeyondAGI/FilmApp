@@ -67,6 +67,7 @@ export let emptyItem = {
 
 export const columns = [
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
+  { field: 'id', header: 'Neo4J UUID', hidden: true },
   {
     field: 'nameInternational',
     header: 'International Name',
@@ -92,7 +93,7 @@ export const columns = [
 ]
 
 export const columnsAll = [
-  { field: 'id', header: 'Neo4J uuid', hidden: true },
+  { field: 'id', header: 'Neo4J UUID', hidden: true },
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   {
     field: 'nameInternational',

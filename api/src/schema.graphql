@@ -11,7 +11,7 @@ directive @id(autogenerate: Boolean! = true) on FIELD_DEFINITION
 
 type Film {
   id                                         : ID! @id(autogenerate: true)
-  radiatorID                                 : String!
+  radiatorID                                 : ID!
   titleInternational                         : String   # General Info
   titleOriginal                              : String
   titleEN                                    : String
@@ -30,7 +30,7 @@ type Film {
   synopsisLongFR                             : String
   synopsisLongDE                             : String
   synopsisLongES                             : String
-  duration                                   : Duration
+  duration                                   : Float
   productionYear                             : Int
   productionMonth                            : Int
   worldPremiereDate                          : Date
@@ -240,7 +240,19 @@ type FilmFestival {
   awardLaurel                     : String
 }
 
+
+type DevTask {
+  id: ID! @id(autogenerate: true)
+  title: String
+  description: String
+  creationDate: DateTime
+  comments: String
+  priority: Int
+  assignedToSprint: String
+}
+
 type Query {
   filmCount        : Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
   filmFestivalCount: Int! @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
+  devTaskCount: Int! @cypher(statement: "MATCH (u:DevTask) RETURN COUNT(u)")
 }
