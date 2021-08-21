@@ -39,7 +39,7 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
 
   const { loading, data, error } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 100,
+      first: 3500,
       offset: 0,
     },
   })
