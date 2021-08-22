@@ -211,7 +211,7 @@ const ToInputField = (col, formik) => {
           {getFormErrorMessage(col.field)}
         </Fragment>
       )
-    case FieldType.FLOAT, FieldType.DURATION:
+    case FieldType.FLOAT:
       return (
         <Fragment>
           <span className="p-float-label">
@@ -240,6 +240,35 @@ const ToInputField = (col, formik) => {
           {getFormErrorMessage(col.field)}
         </Fragment>
       )
+      case FieldType.DURATION:
+        return (
+          <Fragment>
+            <span className="p-float-label">
+              <InputNumber
+                id={col.field}
+                name={col.field}
+                mode="decimal"
+                maxFractionDigits={2}
+                value={formik.values[col.field]}
+                onValueChange={formik.handleChange}
+                showButtons
+                // buttonLayout="horizontal"
+                className={classNames({
+                  'p-invalid': isFormFieldValid(col.field),
+                })}
+              />
+              <label
+                htmlFor={col.field}
+                className={classNames({
+                  'p-error': isFormFieldValid(col.field),
+                })}
+              >
+                {col.header}
+              </label>
+            </span>
+            {getFormErrorMessage(col.field)}
+          </Fragment>
+        )
     case FieldType.INTEGER:
       return (
         <Fragment>

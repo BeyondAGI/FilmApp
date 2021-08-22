@@ -10,13 +10,13 @@ export let emptyItem = {
 }
 
 export const columns = [
-  { field: 'title', header: 'Title', colGroup: 'General Info' },
-  { field: 'id', header: 'Neo4J UUID', hidden: true },
-  { field: 'description', header: 'Description' },
-  { field: 'creationDate', header: 'Creation Date' },
-  { field: 'comments', header: 'Comments', colGroup: 'Planning' },
-  { field: 'priority', header: 'Priority', type: FieldType.INTEGER },
-  { field: 'assignedToSprint', header: 'Assigned To Sprint' },
+  { field: 'title', header: 'Title', colGroup: 'General Info', isDefault:true  },
+  { field: 'id', header: 'Neo4J UUID', hidden: true},
+  { field: 'description', header: 'Description', isDefault:true  },
+  { field: 'creationDate', header: 'Creation Date', isDefault:true  },
+  { field: 'comments', header: 'Comments', colGroup: 'Planning', isDefault:true  },
+  { field: 'priority', header: 'Priority', type: FieldType.INTEGER, isDefault:true  },
+  { field: 'assignedToSprint', header: 'Assigned To Sprint', isDefault:true  },
 ]
 
 export const columnsAll = [

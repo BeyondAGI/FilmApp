@@ -20,7 +20,7 @@ import './styles.css'
 export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
   // Items
   const [selectedColumns, setSelectedColumns] = useState(
-    Models.columns.filter((c) => !c.hidden == true)
+    Models.columns.filter((c) => !c.hidden && c.isDefault)
   )
   // Others
   const [globalFilter, setGlobalFilter] = useState(null)
@@ -39,7 +39,7 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
 
   const { loading, data, error } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 3500,
+      first: 3000,
       offset: 0,
     },
   })
@@ -119,8 +119,8 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
               onSelectionChange={(e) => setRowsSelected(e.value)}
               dataKey="id"
               paginator
-              rows={10}
-              rowsPerPageOptions={[5, 10, 25]}
+              rows={100}
+              rowsPerPageOptions={[25, 50, 100, 200]}
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items"
               globalFilter={globalFilter}

@@ -72,6 +72,7 @@ export const columns = [
     field: 'nameInternational',
     header: 'International Name',
     colGroup: 'General Info',
+    isDefault:true
   },
   { field: 'address', header: 'Address' },
   { field: 'about', header: 'About' },
@@ -79,7 +80,7 @@ export const columns = [
   { field: 'telephone', header: 'Telephone' },
   { field: 'level', header: 'Level' },
   { field: 'foundingYear', header: 'Founding Year' },
-  { field: 'locatedInCountry', header: 'Country' },
+  { field: 'locatedInCountry', header: 'Country', isDefault:true },
   { field: 'takesPlaceInCity', header: 'City' },
   {
     field: 'acceptsFilmLenghts',
@@ -88,7 +89,7 @@ export const columns = [
   },
   { field: 'acceptsFilmGenre01', header: 'Genre 01' },
   { field: 'rulesAndRegulations', header: 'Rules and Regulations' },
-  { field: 'premiereRequirement', header: 'Premiere Requirement' },
+  { field: 'premiereRequirement', header: 'Premiere Requirement', isDefault:true},
   { field: 'filmAge', header: 'Film Age' },
 ]
 
@@ -125,15 +126,15 @@ export const columnsAll = [
     type: FieldType.BOOLEAN,
   },
   { field: 'isAcademyAccredited', header: 'Academy', type: FieldType.BOOLEAN },
-  { field: 'isEFAAccredited', header: 'EFAA', type: FieldType.BOOLEAN },
+  { field: 'isEFAAccredited', header: 'EFA', type: FieldType.BOOLEAN },
   { field: 'isBaftaAccredited', header: 'Bafta', type: FieldType.BOOLEAN },
-  { field: 'isMeliesAccredited', header: 'Melies', type: FieldType.BOOLEAN },
+  { field: 'isMeliesAccredited', header: 'Méliès', type: FieldType.BOOLEAN },
   {
     field: 'isCanandianScreenGuildAccredited',
     header: 'Canandian Screen Guild',
     type: FieldType.BOOLEAN,
   },
-  { field: 'isEAAAccredited', header: 'EAAA', type: FieldType.BOOLEAN },
+  { field: 'isEAAAccredited', header: 'EAA', type: FieldType.BOOLEAN },
   { field: 'isFriends', header: 'Friends', type: FieldType.BOOLEAN },
   { field: 'isPartner', header: 'Partner', type: FieldType.BOOLEAN },
 
