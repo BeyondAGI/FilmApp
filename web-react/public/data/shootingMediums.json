@@ -1,9 +1,9 @@
 
 {
     "data": [
-        {"name": "Analogue"},
-        {"name": "Film"},
-        {"name": "Digital"}
+        {"label": "Analogue"},
+        {"label": "Film"},
+        {"label": "Digital"}
     ]
 }
     

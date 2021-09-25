@@ -1,16 +1,16 @@
 
 {
     "data": [
-        {"name": "In Development Stage"},
-        {"name": "In Writing Stage"},
-        {"name": "In Pitching Stage"},
-        {"name": "In Funding Stage"},
-        {"name": "In Pre-production Stage"},
-        {"name": "In Production Stage"},
-        {"name": "In Post-production Stage"},
-        {"name": "Finalized"},
-        {"name": "Released"},
-        {"name": "Screening At Festivals"}
+        {"label": "In Development Stage"},
+        {"label": "In Writing Stage"},
+        {"label": "In Pitching Stage"},
+        {"label": "In Funding Stage"},
+        {"label": "In Pre-production Stage"},
+        {"label": "In Production Stage"},
+        {"label": "In Post-production Stage"},
+        {"label": "Finalized"},
+        {"label": "Released"},
+        {"label": "Screening At Festivals"}
     ]
 }
     

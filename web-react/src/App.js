@@ -32,7 +32,18 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Dashboard from './routes/Dashboard'
 import FilmFestival from './routes/FilmFestival'
+import FilmApplicationView from './routes/FilmApplicationView'
+import FilmApplication from './routes/FilmApplication'
+import PublishIcon from '@material-ui/icons/Publish';
 import DevTask from './routes/DevTask'
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
+import AuthenticationButton from './components/AuthenticationButton'
+import Profile from './components/Profile'
+
+import { Provider } from 'inversify-react'
+import { container } from './inversify.config'
 
 function Copyright() {
   return (
@@ -139,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes          = useStyles()
   const [open, setOpen]  = React.useState(false)
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -147,6 +159,7 @@ export default function App() {
   }
 
   return (
+    <Provider container={container}>
     <Router>
       <div className = {classes.root}>
         <CssBaseline />
@@ -181,6 +194,9 @@ export default function App() {
             >
               WebApp 2021
             </Typography>
+            <AuthenticationButton></AuthenticationButton>
+            <Profile></Profile>
+
           </Toolbar>
         </AppBar>
         <Drawer
@@ -221,6 +237,22 @@ export default function App() {
                 <ListItemText primary = "Film Festivals List" />
               </ListItem>
             </Link>
+            <Link to = "/FilmApplicationsView" className = {classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PublishIcon />
+                </ListItemIcon>
+                <ListItemText primary = "Film Application (View)" />
+              </ListItem>
+            </Link>
+            <Link to = "/FilmApplications" className = {classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <AddCircleOutlineIcon />
+                </ListItemIcon>
+                <ListItemText primary = "Film Application (Edit)" />
+              </ListItem>
+            </Link>
             <Link to = "/DevTasks" className = {classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
@@ -236,12 +268,14 @@ export default function App() {
         <div       className = {classes.appBarSpacer} />
         <Container maxWidth  = {false} className = {classes.container}>
             <Switch>
-              <Route exact path = "/" component              = {Dashboard} />
-              <Route exact path = "/Films" component         = {Film} />
+              <Route exact path = "/" component              = {withAuthenticationRequired(Dashboard)}/>
+              <Route exact path = "/Films" component         = {withAuthenticationRequired(Film)} />
               {/* <Route exact path = "/filmFestivals" component = {FilmFestivalList} />
               <Route exact path = "/demo" component = {DataTableCrudDemo} /> */}
-              <Route exact path = "/FilmFestivals" component = {FilmFestival} />
-              <Route exact path = "/DevTasks" component = {DevTask} />
+              <Route exact path = "/FilmFestivals" component = {withAuthenticationRequired(FilmFestival)} />
+              <Route exact path = "/DevTasks" component = {withAuthenticationRequired(DevTask)} />
+              <Route exact path = "/FilmApplicationsView" component = {withAuthenticationRequired(FilmApplicationView)} />
+              <Route exact path = "/FilmApplications" component = {withAuthenticationRequired(FilmApplication)} />
             </Switch>
 
             <Box pt = {4}>
@@ -251,5 +285,6 @@ export default function App() {
         </main>
       </div>
     </Router>
+    </Provider>
   )
 }

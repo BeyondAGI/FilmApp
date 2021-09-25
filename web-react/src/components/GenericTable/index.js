@@ -16,6 +16,7 @@ import { Dialog } from 'primereact/dialog'
 import { DeleteItemDialog } from './Dialogs/DeleteItem'
 import { DeleteItemsDialog } from './Dialogs/DeleteItems'
 import './styles.css'
+import { Message } from 'primereact/message'
 
 export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
   // Items
@@ -94,7 +95,12 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
         setShowDeleteItemDialog
       )}
       {loading && !error && <p>Loading...</p>}
-      {error && !loading && <p>Error</p>}
+      {error && !loading && (
+            <Message
+              severity="error"
+              detail={error?.message ?? 'Error when loading, please contact the administrator'}
+            ></Message>
+      )}
       {data && !loading && !error && (
         <div className="datatable-crud-demo">
           <Toast ref={toast} />

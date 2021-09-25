@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { InputNumber } from 'primereact/inputnumber'
@@ -13,68 +13,20 @@ import { ConvertToUTC } from '../../helpers/DateHelper'
 import { OptionListService } from '../../services/OptionListService'
 import { DisplayFormikDebugState } from '../../helpers/FormikHelper'
 import { IS_DEBUG_FORM_ENABLED } from '../../common/constants'
-import TimePicker from '@material-ui/lab/TimePicker';
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-import { TextField } from '@material-ui/core'
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-
-const ToInputField = (col, formik) => {
-  // Dropdowns
-  const [aspectRatios, setAspectRatios] = useState([])
-  const [countries, setCountries] = useState([])
-  const [filmAges, setFilmAges] = useState([])
-  const [filmGenres, setFilmGenres] = useState([])
-  const [filmLengths, setFilmLengths] = useState([])
-  const [filmStatuses, setFilmStatuses] = useState([])
-  const [framerates, setFramerates] = useState([])
-  const [premierRequirements, setPremierRequirements] = useState([])
-  const [shootingMediums, setShootingMediums] = useState([])
+import { useQuery, gql } from '@apollo/client'
+import { useInjection } from 'inversify-react'
 
 
+const ToInputField = (col, formik, optionsList) => {
 
-  const optionListService = new OptionListService()
-  useEffect(() => {
-    optionListService.getAspectRatios().then((data) => setAspectRatios(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getCountries().then((data) => setCountries(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getFilmAges().then((data) => setFilmAges(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getFilmGenres().then((data) => setFilmGenres(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getFilmLengths().then((data) => setFilmLengths(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getFilmStatuses().then((data) => setFilmStatuses(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getFramerates().then((data) => setFramerates(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService
-      .getPremierRequirements()
-      .then((data) => setPremierRequirements(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    optionListService.getShootingMediums().then((data) => setShootingMediums(data))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  
 
-
-  let optionsList = {
-    aspectRatios: aspectRatios,
-    countries: countries,
-    filmAges: filmAges,
-    filmGenres: filmGenres,
-    filmLengths: filmLengths,
-    filmStatuses: filmStatuses,
-    framerates: framerates,
-    premierRequirements: premierRequirements,
-    shootingMediums: shootingMediums
-  }
+  // const [optionsList, setOptionsList] = useState([])
+  // // let optionsList = _optionListService.getOptionsList()
+  // useEffect(() => {
+  //   setOptionsList(_optionListService.getOptionsList())
+  // //   optionListService.getShootingMediums().then((data) => setShootingMediums(data))
+  // }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Don't show hidden fields
   if (col.hidden) {
@@ -146,15 +98,15 @@ const ToInputField = (col, formik) => {
               value={
                 optionsList[col.options]
                   ? optionsList[col.options].find(
-                      (option) => option.name === formik.values[col.field]
-                    )
+                      (option) => option.value == formik.values[col.field]
+                    )?.value
                   : ''
               }
               onChange={(option) =>
-                formik.setFieldValue(col.field, option.value.name)
+                formik.setFieldValue(col.field, option.value)
               }
               options={optionsList[col.options]}
-              optionLabel="name"
+              optionLabel="label"
             />
             <label htmlFor={col.field}>{col.header}</label>
           </span>
@@ -371,11 +323,120 @@ const ToFormHeaderGroup = (col) => {
 
 // Display The Form
 const ToInputForm = (cols, formik) => {
+
+  // Services
+  const _optionListService = useInjection(OptionListService)
+
+  
+  const filmListQuery = gql`
+    query { films {
+      id
+      radiatorID
+      titleInternational
+    }
+  }
+  `
+
+const filmFestivalListQuery = gql`
+query { filmFestivals {
+  id
+  nameInternational
+}
+}
+`
+  // Dropdowns
+  const [aspectRatios, setAspectRatios] = useState([])
+  const [countries, setCountries] = useState([])
+  const [filmAges, setFilmAges] = useState([])
+  const [filmGenres, setFilmGenres] = useState([])
+  const [filmLengths, setFilmLengths] = useState([])
+  const [filmStatuses, setFilmStatuses] = useState([])
+  const [framerates, setFramerates] = useState([])
+  const [premierRequirements, setPremierRequirements] = useState([])
+  const [shootingMediums, setShootingMediums] = useState([])
+  const [relationshipFilmSubmission, setRelationshipFilmSubmission] = useState([])
+  const [films, setFilms] = useState([])
+  const [filmFestivals, setFilmFestivals] = useState([])
+  const filmResult = useQuery(filmListQuery)
+  const filmFestivalResult = useQuery(filmFestivalListQuery)
+
+  // If you absolutely need to cache the mutated data you can do the below. But
+// most of the time you won't need to use useMemo at all.
+const cachedMutatedDataFilm = useMemo(() => {
+  if (filmResult.loading || filmResult.error) return null
+
+  // mutate data here
+  setFilms(filmResult.data.films.map(d => ({label : d.titleInternational, value: d.id})))
+  return filmResult.data
+}, [filmResult.loading, filmResult.error, filmResult.data])
+
+const cachedMutatedDataFilmFestival = useMemo(() => {
+  if (filmFestivalResult.loading || filmFestivalResult.error) return null
+
+  // mutate data here
+  setFilmFestivals(filmFestivalResult.data.filmFestivals.map(d => ({label : d.nameInternational, value: d.id })))
+  return filmFestivalResult.data
+}, [filmFestivalResult.loading, filmFestivalResult.error, filmFestivalResult.data])
+
+
+
+  // const optionListService = new OptionListService()
+  useEffect(() => {
+    _optionListService.getAspectRatios().then((data) => setAspectRatios(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getCountries().then((data) => setCountries(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getFilmAges().then((data) => setFilmAges(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getFilmGenres().then((data) => setFilmGenres(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getFilmLengths().then((data) => setFilmLengths(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getFilmStatuses().then((data) => setFilmStatuses(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getFramerates().then((data) => setFramerates(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService
+      .getPremierRequirements()
+      .then((data) => setPremierRequirements(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getShootingMediums().then((data) => setShootingMediums(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    _optionListService.getRelationshipFilmSubmission().then((data) => setRelationshipFilmSubmission(data))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+
+
+  const optionsList = {
+    aspectRatios: aspectRatios,
+    countries: countries,
+    filmAges: filmAges,
+    filmGenres: filmGenres,
+    filmLengths: filmLengths,
+    filmStatuses: filmStatuses,
+    framerates: framerates,
+    premierRequirements: premierRequirements,
+    shootingMediums: shootingMediums,
+    relationshipFilmSubmission: relationshipFilmSubmission,
+    films: films,
+    filmFestivals: filmFestivals
+  }
+
+
   return cols.map((col) => {
     return (
       <Fragment key={col.field}>
         {ToFormHeaderGroup(col)}
-        <div className="p-field">{ToInputField(col, formik)}</div>
+        <div className="p-field">{ToInputField(col, formik, optionsList)}</div>
       </Fragment>
     )
   })

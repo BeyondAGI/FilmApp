@@ -58,7 +58,7 @@ export const GET_LIST = gql`
       $filter : FilmFestivalWhere
   ) {
     filmFestivals(
-      options: { limit: $first, skip: $offset, sort: [{ radiatorID: DESC }] }
+      options: { limit: $first, offset: $offset, sort: [{ radiatorID: DESC }] }
       where  : $filter
     ) {
       id

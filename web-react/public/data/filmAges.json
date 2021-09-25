@@ -1,9 +1,9 @@
 
 {
     "data": [
-        {"name": "1 Year"},
-        {"name": "2 Years"},
-        {"name": "3 Years"}
+        {"label": "1 Year"},
+        {"label": "2 Years"},
+        {"label": "3 Years"}
     ]
 }
     

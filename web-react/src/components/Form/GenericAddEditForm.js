@@ -30,6 +30,10 @@ export const GenericAddEditForm = ({
     { data, loading, error, called },
   ] = useMutation(Queries.CREATE_ITEMS, { errorPolicy: 'all' })
 
+  // const [
+  //   createRelationship, createRelationshipResult
+  // ] = useMutation(Queries.CREATE_RELATIONSHIPS, { errorPolicy: 'all' })
+
   const [edit, editResult] = useMutation(Queries.UPDATE_ITEM, {
     errorPolicy: 'all',
   })
@@ -46,6 +50,9 @@ export const GenericAddEditForm = ({
       setFormData(data)
       if (data.id) {
         await edit({ variables: { id: data.id, updateInput: rest } })
+      }
+      else if (data?._isRelationship == true) {
+        await create({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
       } else {
         await create({ variables: { input: [data] } })
       }
@@ -76,7 +83,10 @@ export const GenericAddEditForm = ({
         setShowToast,
         editResult.called,
         editResult.loading,
-        editResult.error
+        editResult.error,
+        // createRelationshipResult.called,
+        // createRelationshipResult.loading,
+        // createRelationshipResult.error
       )}
       <Dialog
         visible={showFormDialog}

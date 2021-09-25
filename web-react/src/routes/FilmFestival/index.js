@@ -9,7 +9,7 @@ import 'primeflex/primeflex.css'
 import React from 'react'
 import * as Models from './models/main'
 import * as Queries from './queries/main'
-import { GenericTable } from '../../pages/GenericTable'
+import { GenericTable } from '../../components/GenericTable'
 
 const FilmFestival = () => {
 

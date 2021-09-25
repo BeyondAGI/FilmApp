@@ -4,11 +4,15 @@ import express from 'express'
 import neo4j from 'neo4j-driver'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import dotenv from 'dotenv'
+var jwt = require('express-jwt')
+var jwks = require('jwks-rsa')
+import permissions from './permissions'
+const { applyMiddleware, generateMiddlewareFromSchema, middleware } = require('graphql-middleware')
+
+// https://dev.to/mandiwise/how-to-auth-securing-your-graphql-api-with-confidence-14j
 
 // set environment variables from .env
 dotenv.config()
-
-const app = express()
 
 /*
  * Create a Neo4j driver instance to connect to the database
@@ -29,23 +33,16 @@ const driver = neo4j.driver(
  * Read more in the docs:
  * https://neo4j.com/docs/graphql-manual/current/
  */
-
-const neoSchema = new Neo4jGraphQL({ typeDefs, driver })
-
-/*
- * Create a new ApolloServer instance, serving the GraphQL schema
- * created using makeAugmentedSchema above and injecting the Neo4j driver
- * instance into the context object so it is available in the
- * generated resolvers to connect to the database.
- */
-const server = new ApolloServer({
-  context: {
-    driver,
-    driverConfig: { database: process.env.NEO4J_DATABASE || 'neo4j' },
+const neoSchema = new Neo4jGraphQL({
+  typeDefs, permissions,
+  config: {
+    jwt: {
+      secret: process.env.JWT_SECRET,
+      rolesPath:
+        'https://auth0.radiator.com/claims\\.https://auth0.radiator.com/claims/roles',
+    },
   },
-  schema: neoSchema.schema,
-  introspection: true,
-  playground: true,
+  driver,
 })
 
 // Specify host, port and path for GraphQL endpoint
@@ -53,12 +50,89 @@ const port = process.env.GRAPHQL_SERVER_PORT || 4001
 const path = process.env.GRAPHQL_SERVER_PATH || '/graphql'
 const host = process.env.GRAPHQL_SERVER_HOST || '0.0.0.0'
 
-/*
- * Optionally, apply Express middleware for authentication, etc
- * This also also allows us to specify a path for the GraphQL endpoint
- */
-server.applyMiddleware({ app, path })
-
-app.listen({ host, port, path }, () => {
-  console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://dev-z-kyb9kj.us.auth0.com/.well-known/jwks.json',
+    rolesPath: 'https://auth0.radiator.com/claims\\.https://auth0.radiator.com/claims/roles'
+  }),
+  audience: 'https://auth0.radiator.com/',
+  issuer: 'https://dev-z-kyb9kj.us.auth0.com/',
+  algorithms: ['RS256'],
 })
+
+async function startApolloServer() {
+  const app = express()
+  // const schemaWithMiddleware = applyMiddleware(neoSchema.schema, permissions)
+  const schema = applyMiddleware(neoSchema.schema, permissions)
+  // const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    schema: schema,
+    context: ({ req }) => {
+      const user = req.user || null
+      return { user }
+    }, // UPDATED!
+     introspection: true,
+     playground: true,
+  })
+  await server.start()
+
+  // Additional middleware can be mounted at this point to run before Apollo.
+  app.use('*', jwtCheck) //, requireAuth, checkScope
+
+  // Mount Apollo middleware here.
+  server.applyMiddleware({ app, path })
+  app.listen({ host, port, path }, () => {
+    console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+  })
+  return { server, app }
+}
+startApolloServer()
+
+// const { verifyToken } = require('./utils/verifyToken')
+// var jwt = require('express-jwt')
+// var jwks = require('jwks-rsa')
+// // import IsAuthenticatedDirective from "./directives"
+
+// async function startServer() {
+//   apolloServer = new ApolloServer({
+//     // context: {
+//     //   driver,
+//     //   driverConfig: { database: process.env.NEO4J_DATABASE || 'neo4j' },
+//     // },
+//     // context: ({ req }) => ({ req }),
+//     schema: neoSchema.schema,
+//     context: async ({ event, context }) => {
+//       let isAuthenticated = false
+//       const user = {}
+//       try {
+//         const authHeader = event.headers.authorization || ''
+//         if (authHeader) {
+//           const token = authHeader.split(' ')[1]
+//           const payload = await verifyToken(token)
+//           isAuthenticated = payload && payload.sub ? true : false
+//           user = payload
+//         }
+//       } catch (error) {
+//         console.error(error)
+//       }
+//       console.log(user);
+//       (context.isAuthenticated = true)
+//       // return {
+//       //   ...req,
+//       //   user: user,
+//       //   isAuthenticated: true }
+//     },
+//     introspection: true,
+//     playground: true,
+//   })
+//   await apolloServer.start();
+//   apolloServer.applyMiddleware({ app, path });
+//   app.listen({ host, port, path }, () => {
+//     console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+//   })
+// }
+// startServer();

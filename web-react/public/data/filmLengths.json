@@ -1,9 +1,9 @@
 
 {
     "data": [
-        {"name": "All"},
-        {"name": "Short Films Only"},
-        {"name": "Feature Only"}
+        {"label": "All"},
+        {"label": "Short Films Only"},
+        {"label": "Feature Only"}
     ]
 }
     

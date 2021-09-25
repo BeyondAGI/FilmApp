@@ -3,37 +3,33 @@ import { gql } from '@apollo/client'
 export const DELETE_ITEMS = gql`
   mutation deleteFilms($where: FilmWhere!) {
     deleteFilms(where: $where) {
-        nodesDeleted
-        relationshipsDeleted
+      nodesDeleted
+      relationshipsDeleted
     }
   }
 `
 
 export const UPDATE_ITEM = gql`
   mutation updateFilms($id: ID!, $updateInput: FilmUpdateInput) {
-    updateFilms(
-      where: { id: $id }
-      update: $updateInput
-      ) {
+    updateFilms(where: { id: $id }, update: $updateInput) {
       films {
         id
-      radiatorID
-      titleInternational
-      titleOriginal
-      loglineEN
-      synopsisLongEN
-      duration
-      productionYear
-      productionMonth
-      worldPremiereDate
-      status
-      framerate
-      ageRating
+        radiatorID
+        titleInternational
+        titleOriginal
+        loglineEN
+        synopsisLongEN
+        duration
+        productionYear
+        productionMonth
+        worldPremiereDate
+        status
+        framerate
+        ageRating
       }
-      }
+    }
   }
 `
-
 
 export const CREATE_ITEMS = gql`
   mutation createFilms($input: [FilmCreateInput!]!) {
@@ -47,41 +43,70 @@ export const CREATE_ITEMS = gql`
   }
 `
 
+const APPLICATION_FIELDS = `
+edges {
+  applicationDate
+  feeUSD
+  feeEUR
+  waivedAmountUSD
+  waivedAmountEUR
+          node {
+    nameInternational
+  }
+}
+`
+
+const ENTRY_FEE_FIELDS = `
+edges {
+  receiveDate
+  budgetUSD
+  budgetEUR
+          node {
+    nameInternational
+  }
+}
+`
+
+
+const CONDITION = `{ 
+  OR: [{submittedToFilmFestivals_NOT: null}{selectedAtFilmFestivals_NOT: null}{shortlistedAtFilmFestivals_NOT: null}{toSubmitToFilmFestivals_NOT: null}{notSelectedAtFilmFestivals_NOT: null}{hasEntryFees_NOT: null}]
+}
+`
+
+
 export const GET_LIST = gql`
   query usersPaginateQuery(
       $first  : Int
       $offset : Int
     # $orderBy: [FilmSort]
-      $filter : FilmWhere
+      # $filter : FilmWhere
   ) {
     films(
       options: { limit: $first, offset: $offset, sort: [{ radiatorID: DESC }] }
-      where  : $filter
+      where  : ${CONDITION}
     ) {
       id
       radiatorID
       titleInternational
-      titleOriginal
-      loglineEN
-      synopsisLongEN
-      duration
-      productionYear
-      productionMonth
-      worldPremiereDate
-      status
-      framerate
-      ageRating
+      countSubmittedToFilmFestivals
+      countSelectedAtFilmFestivals
+      countShortlistedAtFilmFestivals
+      countToSubmitToFilmFestivals
+      countNotSelectedAtFilmFestivals
+      countFestivalApplications
+      submittedToFilmFestivalsConnection {${APPLICATION_FIELDS}}
+      selectedAtFilmFestivalsConnection {${APPLICATION_FIELDS}}
+      shortlistedAtFilmFestivalsConnection {${APPLICATION_FIELDS}}
+      toSubmitToFilmFestivalsConnection {${APPLICATION_FIELDS}}
+      notSelectedAtFilmFestivalsConnection {${APPLICATION_FIELDS}}
+      hasEntryFeesConnection {${ENTRY_FEE_FIELDS}}
     }
     filmCount
   }
 `
 export const GET_BY_ID = gql`
-  query getItemDetails(
-    $id: ID!
-  ) {
-    films(
-      where: { id: $id }
-    ) {
+  query getItemDetails($id: ID!) {
+    films(where: { id: $id }) {
       id
       radiatorID
       titleInternational

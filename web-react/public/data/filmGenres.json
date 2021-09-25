@@ -1,13 +1,13 @@
 
 {
     "data": [
-        {"name": "All"},
-        {"name": "Fiction"},
-        {"name": "Documentary"},
-        {"name": "Animation"},
-        {"name": "Experimental"},
-        {"name": "Fantastic"},
-        {"name": "Lgb&t"}
+        {"label": "All"},
+        {"label": "Fiction"},
+        {"label": "Documentary"},
+        {"label": "Animation"},
+        {"label": "Experimental"},
+        {"label": "Fantastic"},
+        {"label": "Lgb&t"}
     ]
 }
     

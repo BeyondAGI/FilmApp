@@ -35,7 +35,7 @@ export default function Deposits() {
         Film festivals found
       </Typography>
       <div>
-        <Link to="/filmfestival" className={classes.navLink}>
+        <Link to="/filmfestivals" className={classes.navLink}>
           View film festivals
         </Link>
       </div>

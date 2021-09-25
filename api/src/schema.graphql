@@ -1,245 +1,323 @@
-scalar DateTime
-scalar Date
-scalar Duration
+# scalar DateTime
+# scalar Date
+# scalar Duration
 
 # To Add manually in Neo4j
 # CREATE CONSTRAINT ON (i:Film) ASSERT i.radiatorID IS UNIQUE;
 # CREATE CONSTRAINT ON (i:FilmFestival) ASSERT i.radiatorID IS UNIQUE;
 
-"""Indicates that the field is the unique identifier for the object type, and additionally enables the autogeneration of IDs."""
-directive @id(autogenerate: Boolean! = true) on FIELD_DEFINITION
-
+"""
+Indicates that the field is the unique identifier for the object type, and additionally enables the autogeneration of IDs.
+""" # directive @id(autogenerate: Boolean! = true) on FIELD_DEFINITION
 type Film {
-  id                                         : ID! @id(autogenerate: true)
-  radiatorID                                 : ID!
-  titleInternational                         : String   # General Info
-  titleOriginal                              : String
-  titleEN                                    : String
-  titleFR                                    : String
-  titleDE                                    : String
-  titleES                                    : String
-  loglineEN                                  : String
-  loglineFR                                  : String
-  loglineDE                                  : String
-  loglineES                                  : String
-  synopsisShortEN                            : String
-  synopsisShortFR                            : String
-  synopsisShortDE                            : String
-  synopsisShortES                            : String
-  synopsisLongEN                             : String
-  synopsisLongFR                             : String
-  synopsisLongDE                             : String
-  synopsisLongES                             : String
-  duration                                   : Float
-  productionYear                             : Int
-  productionMonth                            : Int
-  worldPremiereDate                          : Date
-  status                                     : String
-  framerate                                  : String
-  ageRating                                  : String   #  Parental guidance
-  containsNudity                             : Boolean
-  containsViolence                           : Boolean
-  containsDrugUse                            : Boolean
-  iMDBReviews                                : Int      # Reviews
-  rottenTomatoesReviews                      : Int
-  letterboxdReviews                          : Int
-  iMDBRating                                 : Float    # Ratings
-  rottenTomatoesRating                       : Float
-  letterboxdRating                           : Float
-  filmFestivalViewers                        : Int      # Viewers
-  tvStationViewers                           : Int
-  vodViewers                                 : Int
-  boxOffice                                  : Int
-  previewByFilmCriticMagazine                : String   # Press
-  previewByFilmCritic                        : String
-  reviewByFilmCriticMagazine                 : String
-  reviewByFilmCritic                         : String
-  facebookFanPageURL                         : String   # Social media
-  instagramProfileURL                        : String
-  twitterProfileURL                          : String
-  websiteOfficial                            : String   # Links
-  iMDbLink                                   : String
-  tMDBLink                                   : String
-  letterboxdPage                             : String
-  justWatchPage                              : String
-  filmfreewayPage                            : String
-  audioFormat                                : String   # Technical info
-  aspectRatio                                : String
-  masterShootingMedium                       : String
-  masterShootingFormat                       : String
-  cameraUsed                                 : String
-  lensesUsed                                 : String
-  editingSoftwareUsed                        : String
-  threeDSoftwareUsed                         : String
-  vFXSoftwareUsed                            : String
-  animationTechniqueUsed                     : String
-  isFilmhubPosterCreated                     : Boolean  # VOD platforms technical
-  isFilmhubPortraitStillCreated              : Boolean
-  isFilmhubLandscapeStillCreated             : Boolean
-  isFilmhubLandscapeExtra01StillCreated      : Boolean
-  isFilmhubLandscapeExtra02StillCreated      : Boolean
-  isFilmhubLandscapeExtra03StillCreated      : Boolean
-  isFilmhubLandscapeExtra04StillCreated      : Boolean
-  isFilmfriendPortraitCoverCreated           : Boolean
-  isFilmfriendLandscapeCoverCreated          : Boolean
-  isFilmfriendThumbnailCreated               : Boolean
-  isFilmfriendSliderCreated                  : Boolean
-  isFilmfriendBackgroundCreated              : Boolean
+  id: ID! @id(autogenerate: true)
+  radiatorID: ID!
+  titleInternational: String # General Info
+  titleOriginal: String
+  titleEN: String
+  titleFR: String
+  titleDE: String
+  titleES: String
+  loglineEN: String
+  loglineFR: String
+  loglineDE: String
+  loglineES: String
+  synopsisShortEN: String
+  synopsisShortFR: String
+  synopsisShortDE: String
+  synopsisShortES: String
+  synopsisLongEN: String
+  synopsisLongFR: String
+  synopsisLongDE: String
+  synopsisLongES: String
+  duration: Float
+  productionYear: Int
+  productionMonth: Int
+  worldPremiereDate: Date
+  status: String
+  framerate: String
+  ageRating: String #  Parental guidance
+  containsNudity: Boolean
+  containsViolence: Boolean
+  containsDrugUse: Boolean
+  iMDBReviews: Int # Reviews
+  rottenTomatoesReviews: Int
+  letterboxdReviews: Int
+  iMDBRating: Float # Ratings
+  rottenTomatoesRating: Float
+  letterboxdRating: Float
+  filmFestivalViewers: Int # Viewers
+  tvStationViewers: Int
+  vodViewers: Int
+  boxOffice: Int
+  previewByFilmCriticMagazine: String # Press
+  previewByFilmCritic: String
+  reviewByFilmCriticMagazine: String
+  reviewByFilmCritic: String
+  facebookFanPageURL: String # Social media
+  instagramProfileURL: String
+  twitterProfileURL: String
+  websiteOfficial: String # Links
+  iMDbLink: String
+  tMDBLink: String
+  letterboxdPage: String
+  justWatchPage: String
+  filmfreewayPage: String
+  audioFormat: String # Technical info
+  aspectRatio: String
+  masterShootingMedium: String
+  masterShootingFormat: String
+  cameraUsed: String
+  lensesUsed: String
+  editingSoftwareUsed: String
+  threeDSoftwareUsed: String
+  vFXSoftwareUsed: String
+  animationTechniqueUsed: String
+  isFilmhubPosterCreated: Boolean # VOD platforms technical
+  isFilmhubPortraitStillCreated: Boolean
+  isFilmhubLandscapeStillCreated: Boolean
+  isFilmhubLandscapeExtra01StillCreated: Boolean
+  isFilmhubLandscapeExtra02StillCreated: Boolean
+  isFilmhubLandscapeExtra03StillCreated: Boolean
+  isFilmhubLandscapeExtra04StillCreated: Boolean
+  isFilmfriendPortraitCoverCreated: Boolean
+  isFilmfriendLandscapeCoverCreated: Boolean
+  isFilmfriendThumbnailCreated: Boolean
+  isFilmfriendSliderCreated: Boolean
+  isFilmfriendBackgroundCreated: Boolean
   isFilmfriendMaterialsOkQualityCheckPlatform: Boolean
-  filmhubPosterLocation                      : String
-  filmhubPortraitStillLocation               : String
-  filmhubLandscapeStillLocation              : String
-  filmhubLandscapeExtra01StillLocation       : String
-  filmhubLandscapeExtra02StillLocation       : String
-  filmhubLandscapeExtra03StillLocation       : String
-  filmhubLandscapeExtra04StillLocation       : String
-  filmhubMaterialsOkQualityCheckPlatform     : String
-  filmfriendPortraitCoverLocation            : String
-  filmfriendLandscapeCoverLocation           : String
-  filmfriendThumbnailLocation                : String
-  filmfriendSliderLocation                   : String
-  filmfriendBackgroundLocation               : String
-  vuulrVimeoLinkFilm                         : String   # Platform specific links Vimeo
-  vuulrVimeoLinkTrailer                      : String
-  filmfreewayVimeoLinkFilm                   : String
-  festhomeVimeoLinkFilm                      : String
-  youtubeTrailerFHDRadiatorChannel           : String   # Trailer links
-  youtubeTrailer4KUHDRadiatorChannel         : String
-  vimeoTrailerRadiatorWebsite                : String
-  vimeoTrailerPublic                         : String
-  vimeoScreenerProduction                    : String   # Screener links
-  vimeoScreenerDirector                      : String
-  vimeoScreenerCrew                          : String
-  vimeoScreenerDOP                           : String
-  vimeoScreenerProgrammers                   : String
-  vimeoScreenerBuyers                        : String
-  vimeoScreenerPress                         : String
-  vimeoOnDemandFHD                           : String   # VOD Platforms links
-  vimeoOnDemand4KUHD                         : String
-  amazonUS                                   : String
-  amazonUK                                   : String
-  amazonDE                                   : String
-  amazonES                                   : String
-  tubi                                       : String
-  dindintv                                   : String
-  kisKisKeepItShortEN                        : String
-  kisKisKeepItShortES                        : String
-  kisKisKeepItShortDE                        : String
-  kisKisKeepItShortFR                        : String
-  bekkesShortFilms                           : String
-  wocomoMovies                               : String
-  wocomoHumanity                             : String
-  filmfriend                                 : String
-  amazonIMDBTV                               : String
-  filmzie                                    : String
-  fearless                                   : String
-  overdrive                                  : String
-  kinoscope                                  : String
-  sofytv                                     : String
-  daFilms                                    : String
-  argo                                       : String
-  avaLibrary                                 : String
-  cinesquare                                 : String
-  cinesud                                    : String
-  guideDoc                                   : String
-  soonerBelgium                              : String
-  soonerGermany                              : String
-  criterionCollection                        : String
-  creedGlobalMedia                           : String
-  artexFilm                                  : String
-  cineBooks                                  : String
-  cinetree                                   : String
-  flexNetTv                                  : String
-  filxPremiere                               : String
-  filmocrazy                                 : String
-  filmin                                     : String
-  gayBingeTV                                 : String
-  movieBloc                                  : String
-  submittedToFilmFestivals                   : [FilmFestival!] @relationship(type: "SUBMITTED_TO", direction: OUT) # Relationships [FilmFestival]
-  selectedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "SELECTED_AT", direction: OUT)
-  shortlistedAtFilmFestivals                 : [FilmFestival!] @relationship(type: "SHORTLISTED_AT", direction: OUT)
-  toSubmitToFilmFestivals                    : [FilmFestival!] @relationship(type: "TO_SUBMIT_TO", direction: OUT)
-  notSelectedAtFilmFestivals                 : [FilmFestival!] @relationship(type: "NOT_SELECTED_AT", direction: OUT)
-  screenedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "SCREENED_AT", direction: OUT)
-  awardedAtFilmFestivals                     : [FilmFestival!] @relationship(type: "AWARDED_AT", direction: OUT)
-  proposedAtFilmFestivals                    : [FilmFestival!] @relationship(type: "PROPOSED_TO", direction: OUT)
-  licensedByFilmFestivals                    : [FilmFestival!] @relationship(type: "LICENSED_BY", direction: OUT)
-  dcpSentToFilmFestivals                     : [FilmFestival!] @relationship(type: "DCP_SENT_TO", direction: OUT)
-  appleProres4444FHDSentToFilmFestivals      : [FilmFestival!] @relationship(type: "APPLE_PRORES_4444_FHD_SENT_TO", direction: OUT)
-  appleProres44444KUHDSentToFilmFestivals    : [FilmFestival!] @relationship(type: "APPLE_PRORES_4444_4KUHD_SENT_TO", direction: OUT)
-  h264HQFHDSentToFilmFestivals               : [FilmFestival!] @relationship(type: "H264_HQ_FHD_SENT_TO", direction: OUT)
-  posterSentToFilmFestivals                  : [FilmFestival!] @relationship(type: "POSTER_SENT_TO", direction: OUT)
-  stillsSentToFilmFestivals                  : [FilmFestival!] @relationship(type: "STILLS_SENT_TO", direction: OUT)
-  subtitlesSentToFilmFestivals               : [FilmFestival!] @relationship(type: "SUBTITLES_SENT_TO", direction: OUT)
-  materialsDeliveryOkForFilmFestivals        : [FilmFestival!] @relationship(type: "MATERIALS_DELIVERY_OK_FOR", direction: OUT)
+  filmhubPosterLocation: String
+  filmhubPortraitStillLocation: String
+  filmhubLandscapeStillLocation: String
+  filmhubLandscapeExtra01StillLocation: String
+  filmhubLandscapeExtra02StillLocation: String
+  filmhubLandscapeExtra03StillLocation: String
+  filmhubLandscapeExtra04StillLocation: String
+  filmhubMaterialsOkQualityCheckPlatform: String
+  filmfriendPortraitCoverLocation: String
+  filmfriendLandscapeCoverLocation: String
+  filmfriendThumbnailLocation: String
+  filmfriendSliderLocation: String
+  filmfriendBackgroundLocation: String
+  vuulrVimeoLinkFilm: String # Platform specific links Vimeo
+  vuulrVimeoLinkTrailer: String
+  filmfreewayVimeoLinkFilm: String
+  festhomeVimeoLinkFilm: String
+  youtubeTrailerFHDRadiatorChannel: String # Trailer links
+  youtubeTrailer4KUHDRadiatorChannel: String
+  vimeoTrailerRadiatorWebsite: String
+  vimeoTrailerPublic: String
+  vimeoScreenerProduction: String # Screener links
+  vimeoScreenerDirector: String
+  vimeoScreenerCrew: String
+  vimeoScreenerDOP: String
+  vimeoScreenerProgrammers: String
+  vimeoScreenerBuyers: String
+  vimeoScreenerPress: String
+  vimeoOnDemandFHD: String # VOD Platforms links
+  vimeoOnDemand4KUHD: String
+  amazonUS: String
+  amazonUK: String
+  amazonDE: String
+  amazonES: String
+  tubi: String
+  dindintv: String
+  kisKisKeepItShortEN: String
+  kisKisKeepItShortES: String
+  kisKisKeepItShortDE: String
+  kisKisKeepItShortFR: String
+  bekkesShortFilms: String
+  wocomoMovies: String
+  wocomoHumanity: String
+  filmfriend: String
+  amazonIMDBTV: String
+  filmzie: String
+  fearless: String
+  overdrive: String
+  kinoscope: String
+  sofytv: String
+  daFilms: String
+  argo: String
+  avaLibrary: String
+  cinesquare: String
+  cinesud: String
+  guideDoc: String
+  soonerBelgium: String
+  soonerGermany: String
+  criterionCollection: String
+  creedGlobalMedia: String
+  artexFilm: String
+  cineBooks: String
+  cinetree: String
+  flexNetTv: String
+  filxPremiere: String
+  filmocrazy: String
+  filmin: String
+  gayBingeTV: String
+  movieBloc: String
+  submittedToFilmFestivals: [FilmFestival!]
+    @relationship(
+      type: "SUBMITTED_TO"
+      properties: "FilmApplicationDetails"
+      direction: OUT
+    ) # Relationships [FilmFestival]
+  selectedAtFilmFestivals: [FilmFestival!]
+    @relationship(
+      type: "SELECTED_AT"
+      properties: "FilmApplicationDetails"
+      direction: OUT
+    )
+  shortlistedAtFilmFestivals: [FilmFestival!]
+    @relationship(
+      type: "SHORTLISTED_AT"
+      properties: "FilmApplicationDetails"
+      direction: OUT
+    )
+  toSubmitToFilmFestivals: [FilmFestival!]
+    @relationship(
+      type: "TO_SUBMIT_TO"
+      properties: "FilmApplicationDetails"
+      direction: OUT
+    )
+  notSelectedAtFilmFestivals: [FilmFestival!]
+    @relationship(
+      type: "NOT_SELECTED_AT"
+      properties: "FilmApplicationDetails"
+      direction: OUT
+    )
+  hasEntryFees: [FilmFestival!]
+    @relationship(
+      type: "HAS_ENTRY_FEE"
+      properties: "FilmEntryFeeDetails"
+      direction: OUT
+    )
+  countSubmittedToFilmFestivals: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:SUBMITTED_TO]->(:FilmFestival) return COUNT(x)"
+    )
+  countSelectedAtFilmFestivals: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:SELECTED_AT]->(:FilmFestival) return COUNT(x)"
+    )
+  countShortlistedAtFilmFestivals: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:SHORTLISTED_AT]->(:FilmFestival) return COUNT(x)"
+    )
+  countToSubmitToFilmFestivals: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:TO_SUBMIT_TO]->(:FilmFestival) return COUNT(x)"
+    )
+  countNotSelectedAtFilmFestivals: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:NOT_SELECTED_AT]->(:FilmFestival) return COUNT(x)"
+    )
+  countFestivalApplications: Int!
+    @cypher(statement: "MATCH (this)-[x]->(:FilmFestival) return COUNT(x)")
+  screenedAtFilmFestivals: [FilmFestival!]
+    @relationship(type: "SCREENED_AT", direction: OUT)
+  awardedAtFilmFestivals: [FilmFestival!]
+    @relationship(type: "AWARDED_AT", direction: OUT)
+  proposedAtFilmFestivals: [FilmFestival!]
+    @relationship(type: "PROPOSED_TO", direction: OUT)
+  licensedByFilmFestivals: [FilmFestival!]
+    @relationship(type: "LICENSED_BY", direction: OUT)
+  dcpSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "DCP_SENT_TO", direction: OUT)
+  appleProres4444FHDSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "APPLE_PRORES_4444_FHD_SENT_TO", direction: OUT)
+  appleProres44444KUHDSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "APPLE_PRORES_4444_4KUHD_SENT_TO", direction: OUT)
+  h264HQFHDSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "H264_HQ_FHD_SENT_TO", direction: OUT)
+  posterSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "POSTER_SENT_TO", direction: OUT)
+  stillsSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "STILLS_SENT_TO", direction: OUT)
+  subtitlesSentToFilmFestivals: [FilmFestival!]
+    @relationship(type: "SUBTITLES_SENT_TO", direction: OUT)
+  materialsDeliveryOkForFilmFestivals: [FilmFestival!]
+    @relationship(type: "MATERIALS_DELIVERY_OK_FOR", direction: OUT)
+}
+
+interface FilmApplicationDetails @relationshipProperties {
+  applicationDate: Date
+  feeUSD: Float
+  feeEUR: Float
+  waivedAmountUSD: Float
+  waivedAmountEUR: Float
+}
+
+interface FilmEntryFeeDetails @relationshipProperties {
+  budgetUSD: Float
+  budgetEUR: Float
+  receiveDate: Date
 }
 
 type FilmFestival {
-  id                              : ID! @id(autogenerate: true)
-  radiatorID                      : ID!
-  nameInternational               : String!   # General info
-  nameOriginal                    : String
-  address                         : String
-  about                           : String
-  email                           : String
-  telephone                       : String
-  dateStart                       : Date
-  dateEnd                         : Date
-  level                           : String
-  foundingYear                    : Int
-  locatedInCountry                : String
-  takesPlaceInCity                : String
-  awards                          : String
-  isFIAPFAccredited               : Boolean   # Accreditations
-  isAcademyAccredited             : Boolean
-  isEFAAccredited                 : Boolean
-  isBaftaAccredited               : Boolean
-  isGoyaAccredited                : Boolean
-  isMeliesAccredited              : Boolean
+  id: ID! @id(autogenerate: true)
+  radiatorID: ID!
+  nameInternational: String! # General info
+  nameOriginal: String
+  address: String
+  about: String
+  email: String
+  telephone: String
+  dateStart: Date
+  dateEnd: Date
+  level: String
+  foundingYear: Int
+  locatedInCountry: String
+  takesPlaceInCity: String
+  awards: String
+  isFIAPFAccredited: Boolean # Accreditations
+  isAcademyAccredited: Boolean
+  isEFAAccredited: Boolean
+  isBaftaAccredited: Boolean
+  isGoyaAccredited: Boolean
+  isMeliesAccredited: Boolean
   isCanandianScreenGuildAccredited: Boolean
-  isEAAAccredited                 : Boolean
-  isFriends                       : Boolean
-  isPartner                       : Boolean
-  acceptsFilmLenghts              : String    # Film Requirements
-  acceptsFilmGenre01              : String
-  acceptsFilmGenre02              : String
-  acceptsFilmGenre03              : String
-  deadlineMonth                   : String
-  rulesAndRegulations             : String
-  premiereRequirement             : String
-  filmAge                         : String
-  organisers                      : String    # Management
-  directors                       : String
-  seniorProgrammer01              : String
-  seniorProgrammer02              : String
-  seniorProgrammer03              : String
-  shortsProgrammer01              : String
-  shortsProgrammer02              : String
-  websiteMain                     : String   # Links
-  facebookPage                    : String
-  instagramProfile                : String
-  twitterProfile                  : String
-  cinandoProfile                  : String
-  iMDBProfile                     : String
-  filmfreewayLink                 : String
-  submissionPageOriginal          : String   # Submission details
-  submissionPageFilmfreeway       : String
-  submissionDateEarly             : Date
-  submissionDateRegular           : Date
-  submissionDateLate              : Date
-  submissionFeeEarly              : Float
-  submissionFeeRegular            : Float
-  submissionFeesLate              : Float
-  submissionRegulations           : String
-  venue01                         : String   # Venues
-  venue02                         : String
-  venue03                         : String
-  venue04                         : String
-  venue05                         : String
-  selectionLaurel                 : String   # Laurels
-  awardLaurel                     : String
+  isEAAAccredited: Boolean
+  isFriends: Boolean
+  isPartner: Boolean
+  acceptsFilmLenghts: String # Film Requirements
+  acceptsFilmGenre01: String
+  acceptsFilmGenre02: String
+  acceptsFilmGenre03: String
+  deadlineMonth: String
+  rulesAndRegulations: String
+  premiereRequirement: String
+  filmAge: String
+  organisers: String # Management
+  directors: String
+  seniorProgrammer01: String
+  seniorProgrammer02: String
+  seniorProgrammer03: String
+  shortsProgrammer01: String
+  shortsProgrammer02: String
+  websiteMain: String # Links
+  facebookPage: String
+  instagramProfile: String
+  twitterProfile: String
+  cinandoProfile: String
+  iMDBProfile: String
+  filmfreewayLink: String
+  submissionPageOriginal: String # Submission details
+  submissionPageFilmfreeway: String
+  submissionDateEarly: Date
+  submissionDateRegular: Date
+  submissionDateLate: Date
+  submissionFeeEarly: Float
+  submissionFeeRegular: Float
+  submissionFeesLate: Float
+  submissionRegulations: String
+  venue01: String # Venues
+  venue02: String
+  venue03: String
+  venue04: String
+  venue05: String
+  selectionLaurel: String # Laurels
+  awardLaurel: String
 }
-
 
 type DevTask {
   id: ID! @id(autogenerate: true)
@@ -251,8 +329,24 @@ type DevTask {
   assignedToSprint: String
 }
 
+# extend type DevTask @auth(rules: [{ isAuthenticated: true }])
+
+type User {
+  user_id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  email: String!
+  name: String!
+  nickname: String!
+  picture: String!
+}
+
 type Query {
-  filmCount        : Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
-  filmFestivalCount: Int! @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
+  filmCount: Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
+  filmFestivalCount: Int!
+    @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
   devTaskCount: Int! @cypher(statement: "MATCH (u:DevTask) RETURN COUNT(u)")
+  user(id: String!): User
+  users(name: String): [User!]!
+  #filmSubmissions: [Film!] @cypher(statement: "MATCH (a:Film)-[x]->(b:FilmFestival) return a, x, b")
 }

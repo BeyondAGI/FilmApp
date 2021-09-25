@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
+import { setContext } from '@apollo/client/link/context';
+import ApolloWrapper from './components/ApolloWrapper'
+// https://www.youtube.com/watch?v=Ay7-RyX9XPM&list=PL9Hl4pk2FsvUjfSsxLolVToO5t1hwEIKK&index=9&ab_channel=Neo4j
 
-const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_URI || '/graphql',
-  cache: new InMemoryCache(),
-})
 
 const theme = createMuiTheme({
   palette: {
@@ -24,13 +22,23 @@ const theme = createMuiTheme({
   },
 })
 
+const domain = process.env.REACT_APP_AUTH0_DOMAIN
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE
 
 const Main = () => (
-  <ApolloProvider client={client}>
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    redirectUri={window.location.origin}
+    audience={audience}
+  >
+    <ApolloWrapper>
     <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </ApolloProvider>
+        <App />
+      </ThemeProvider>
+    </ApolloWrapper>
+  </Auth0Provider>
 )
 
 ReactDOM.render(<Main />, document.getElementById('root'))

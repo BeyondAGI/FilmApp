@@ -1,12 +1,12 @@
 
 {
     "data": [
-        {"name": "World Premier"},
-        {"name": "International Premier"},
-        {"name": "National Premier"},
-        {"name": "Regional Premier"},
-        {"name": "City Premier"},
-        {"name": "None"}
+        {"label": "World Premier"},
+        {"label": "International Premier"},
+        {"label": "National Premier"},
+        {"label": "Regional Premier"},
+        {"label": "City Premier"},
+        {"label": "None"}
     ]
 }
     

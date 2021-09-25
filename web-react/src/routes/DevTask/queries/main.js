@@ -49,7 +49,7 @@ export const GET_LIST = gql`
       $filter : DevTaskWhere
   ) {
     devTasks(
-      options: { limit: $first, skip: $offset, sort: [{ priority: ASC }] }
+      options: { limit: $first, offset: $offset, sort: [{ priority: ASC }] }
       where  : $filter
     ) {
       id
