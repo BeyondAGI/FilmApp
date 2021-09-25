@@ -26,11 +26,11 @@
     "inversify-react": "^1.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "now-build": "react-scripts build"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject",
+    "now-build": "react-app-rewired build"
   },
   "devDependencies": {
     "http-proxy-middleware": "^0.20.0"
