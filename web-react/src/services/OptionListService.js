@@ -2,7 +2,7 @@ import { injectable } from 'inversify'
 import 'reflect-metadata'
 
 
-@injectable()
+// @injectable()
 export class OptionListService {
 
   getAspectRatios() {

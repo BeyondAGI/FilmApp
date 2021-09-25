@@ -325,8 +325,8 @@ const ToFormHeaderGroup = (col) => {
 const ToInputForm = (cols, formik) => {
 
   // Services
-  const _optionListService = useInjection(OptionListService)
-
+  // const _optionListService = useInjection(OptionListService)
+  const _optionListService = new OptionListService()
   
   const filmListQuery = gql`
     query { films {
