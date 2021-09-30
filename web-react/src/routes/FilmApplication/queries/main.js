@@ -78,6 +78,60 @@ mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: Fi
 `
 
 
+export const CREATE_RELATIONSHIP_SUBMITTED_TO =  gql`
+mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: FilmApplicationDetailsCreateInput) {
+  updateFilms(connect: {submittedToFilmFestivals: {where: {node: {id: $toId}}, edge: $relationshipProperties}}, where: {id: $fromId}) {
+    films {
+      id
+    }
+  }
+  }
+`
+
+export const CREATE_RELATIONSHIP_SELECTED_AT =  gql`
+mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: FilmApplicationDetailsCreateInput) {
+  updateFilms(connect: {selectedAtFilmFestivals: {where: {node: {id: $toId}}, edge: $relationshipProperties}}, where: {id: $fromId}) {
+    films {
+      id
+    }
+  }
+  }
+`
+
+export const CREATE_RELATIONSHIP_SHORTLISTED_AT =  gql`
+mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: FilmApplicationDetailsCreateInput) {
+  updateFilms(connect: {shortlistedAtFilmFestivals: {where: {node: {id: $toId}}, edge: $relationshipProperties}}, where: {id: $fromId}) {
+    films {
+      id
+    }
+  }
+  }
+`
+
+export const CREATE_RELATIONSHIP_TO_SUBMIT_TO =  gql`
+mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: FilmApplicationDetailsCreateInput) {
+  updateFilms(connect: {toSubmitToFilmFestivals: {where: {node: {id: $toId}}, edge: $relationshipProperties}}, where: {id: $fromId}) {
+    films {
+      id
+    }
+  }
+  }
+`
+
+export const CREATE_RELATIONSHIP_NOT_SELECTED_AT =  gql`
+mutation UpdateFilmsMutation($fromId: ID, $toId: ID, $relationshipProperties: FilmApplicationDetailsCreateInput) {
+  updateFilms(connect: {notSelectedAtFilmFestivals: {where: {node: {id: $toId}}, edge: $relationshipProperties}}, where: {id: $fromId}) {
+    films {
+      id
+    }
+  }
+  }
+`
+
+// export const CREATE_ITEMS = [
+//   CREATE_ITEMS_01,
+//   CREATE_ITEMS_02]
+
 
 
 const APPLICATION_FIELDS = `

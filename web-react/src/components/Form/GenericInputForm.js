@@ -76,7 +76,7 @@ const ToInputField = (col, formik, optionsList) => {
             <Calendar
               id={col.field}
               name={col.field}
-              value={formik.values[col.field]}
+              value={formik.values[col.field] == null ? null : new Date(formik.values[col.field])}
               onChange={(newValue) => {
                 formik.setFieldValue(col.field, ConvertToUTC(newValue.value))
               }}

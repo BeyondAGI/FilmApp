@@ -15,14 +15,11 @@ const isAuthenticated = rule()((parent, args, { user }) => {
 const isAdmin = rule()((parent, args, { user }) => {
   return checkPermission(user, 'admin:all')
 })
-// export default shield({
-//       Query: {
-//         "*": isAdmin,
-//       },
-//     }, isAdmin)
 
 export default shield({
-  Query: {
-    filmCount: isAdmin,
-  },
-})
+      Query: {
+        "*": isAdmin,
+      },
+    }, isAdmin)
+
+

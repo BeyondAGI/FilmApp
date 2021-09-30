@@ -11,7 +11,7 @@ import { header } from './Headers/Header'
 import { columnComponents } from './Columns/Column'
 import { ActionBodyTemplate } from './Others/Action'
 import { Fragment } from 'react'
-import { GenericAddEditForm } from '../Form/GenericAddEditForm'
+import { GenericAddEditFormRelationship } from '../Form/GenericAddEditFormRelationship'
 import { Dialog } from 'primereact/dialog'
 import { DeleteItemDialog } from './Dialogs/DeleteItem'
 import { DeleteItemsDialog } from './Dialogs/DeleteItems'
@@ -287,7 +287,7 @@ export const ExpandableTableEdit = (
             </DataTable>
           </div>
           <Fragment>
-            <GenericAddEditForm
+            <GenericAddEditFormRelationship
               Queries={Queries}
               Models={Models}
               showFormDialog={showFormDialog}

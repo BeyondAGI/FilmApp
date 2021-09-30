@@ -30,6 +30,8 @@ export const GenericAddEditForm = ({
     { data, loading, error, called },
   ] = useMutation(Queries.CREATE_ITEMS, { errorPolicy: 'all' })
 
+  // const [relationship01, relationship01Result] = useMutation(Queries.CREATE_ITEMS_02, { errorPolicy: 'all' })
+
   // const [
   //   createRelationship, createRelationshipResult
   // ] = useMutation(Queries.CREATE_RELATIONSHIPS, { errorPolicy: 'all' })
@@ -52,7 +54,13 @@ export const GenericAddEditForm = ({
         await edit({ variables: { id: data.id, updateInput: rest } })
       }
       else if (data?._isRelationship == true) {
-        await create({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
+        // if (data?._RELATIONSHIP_ == 'submittedToFilmFestivals') {
+        //   await relationship01({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
+        // }
+        if (data?._RELATIONSHIP_ == 'shortlistedAtFilmFestivals') {
+          await create({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
+        }
+          
       } else {
         await create({ variables: { input: [data] } })
       }
