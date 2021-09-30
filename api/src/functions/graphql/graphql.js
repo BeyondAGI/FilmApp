@@ -1,13 +1,38 @@
 import { typeDefs } from './graphql-schema'
-import { ApolloServer } from 'apollo-server-express'
+const { ApolloServer } = require('apollo-server-lambda')
 import express from 'express'
 import neo4j from 'neo4j-driver'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import dotenv from 'dotenv'
 var jwt = require('express-jwt')
 var jwks = require('jwks-rsa')
-import permissions from './permissions'
+
 const { applyMiddleware, generateMiddlewareFromSchema, middleware } = require('graphql-middleware')
+import { and, or, rule, shield } from 'graphql-shield'
+
+function checkPermission(user, permission) {
+  if (user && user.permissions) {
+    return user.permissions.includes(permission)
+  }
+
+  return false
+}
+
+const isAuthenticated = rule()((parent, args, { user }) => {
+  return user !== null
+})
+
+const isAdmin = rule()((parent, args, { user }) => {
+  return checkPermission(user, 'admin:all')
+})
+
+const permissions = shield({
+      Query: {
+        "*": isAdmin,
+      },
+    }, isAdmin)
+
+
 
 // https://dev.to/mandiwise/how-to-auth-securing-your-graphql-api-with-confidence-14j
 
