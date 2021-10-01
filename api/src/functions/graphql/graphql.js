@@ -93,10 +93,14 @@ const schema = applyMiddleware(neoSchema.schema, permissions)
 const server = new ApolloServer({
   typeDefs,
   schema: schema,
-  context: ({ req }) => {
-    const user = req.user || null
-    return { user }
-  }, // UPDATED!
+  context: ({ event, context, express }) => ({
+    headers: event.headers,
+    functionName: context.functionName,
+    event,
+    context,
+    expressRequest: express.req,
+    user: express.req?.user || null
+  }),
    introspection: true,
    playground: true,
 })
