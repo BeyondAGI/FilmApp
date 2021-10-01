@@ -88,7 +88,7 @@ var jwtCheck = jwt({
   algorithms: ['RS256'],
 })
 
-async function startApolloServer() {
+exports.handler = async function startApolloServer() {
   const app = express()
   // const schemaWithMiddleware = applyMiddleware(neoSchema.schema, permissions)
   const schema = applyMiddleware(neoSchema.schema, permissions)
@@ -113,11 +113,9 @@ async function startApolloServer() {
   app.listen({ host, port, path }, () => {
     console.log(`GraphQL server ready at http://${host}:${port}${path}`)
   })
-  exports.handler = server.createHandler()
+   
   return { server, app }
 }
-startApolloServer()
-
 
 // const { verifyToken } = require('./utils/verifyToken')
 // var jwt = require('express-jwt')
