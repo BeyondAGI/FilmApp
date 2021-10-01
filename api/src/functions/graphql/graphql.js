@@ -103,16 +103,15 @@ exports.handler = async function startApolloServer() {
      introspection: true,
      playground: true,
   })
-  await server.start()
 
   // Additional middleware can be mounted at this point to run before Apollo.
   app.use('*', jwtCheck) //, requireAuth, checkScope
 
   // Mount Apollo middleware here.
   server.applyMiddleware({ app, path })
-  app.listen({ host, port, path }, () => {
-    console.log(`GraphQL server ready at http://${host}:${port}${path}`)
-  })
+  // app.listen({ host, port, path }, () => {
+  //   console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+  // })
    
   return { server, app }
 }
