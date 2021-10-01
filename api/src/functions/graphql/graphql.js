@@ -88,33 +88,28 @@ var jwtCheck = jwt({
   algorithms: ['RS256'],
 })
 
-exports.handler = async function startApolloServer() {
-  const app = express()
-  // const schemaWithMiddleware = applyMiddleware(neoSchema.schema, permissions)
-  const schema = applyMiddleware(neoSchema.schema, permissions)
-  // const httpServer = http.createServer(app);
-  const server = new ApolloServer({
-    typeDefs,
-    schema: schema,
-    context: ({ req }) => {
-      const user = req.user || null
-      return { user }
-    }, // UPDATED!
-     introspection: true,
-     playground: true,
-  })
 
-  // Additional middleware can be mounted at this point to run before Apollo.
-  app.use('*', jwtCheck) //, requireAuth, checkScope
+const schema = applyMiddleware(neoSchema.schema, permissions)
+const server = new ApolloServer({
+  typeDefs,
+  schema: schema,
+  context: ({ req }) => {
+    const user = req.user || null
+    return { user }
+  }, // UPDATED!
+   introspection: true,
+   playground: true,
+})
 
-  // Mount Apollo middleware here.
-  // server.applyMiddleware({ app, path })
-  // app.listen({ host, port, path }, () => {
-  //   console.log(`GraphQL server ready at http://${host}:${port}${path}`)
-  // })
-   
-  return { server, app }
-}
+exports.handler = server.createHandler({
+  expressAppFromMiddleware(middleware) {
+    const app = express();
+    app.use('*', jwtCheck)
+    app.use(middleware);
+    return app;
+  }
+});
+
 
 // const { verifyToken } = require('./utils/verifyToken')
 // var jwt = require('express-jwt')
