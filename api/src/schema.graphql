@@ -317,6 +317,7 @@ type FilmFestival {
   venue05: String
   selectionLaurel: String # Laurels
   awardLaurel: String
+  comments: String # Added in sprint 3
 }
 
 type DevTask {
@@ -341,11 +342,147 @@ type User {
   picture: String!
 }
 
+type Person {
+  id: ID! @id(autogenerate: true)
+  radiatorID: String
+  displayName: String!
+  addressHomeCity: String
+  addressHomeCountryEN: String
+  addressHomeCountryIso: String
+  addressHomeStreet01: String
+  addressHomeStreet02: String
+  addressHomeZip: String
+  nameOrganisation01: String
+  nameOrganisation02: String
+  emailMain: String
+  prefixEmail: String
+  emailPreferred: String
+  emailHyperlink: String
+  nameFirstName: String
+  nameLastName: String
+  nameFullName: String
+  nameNickname: String
+  biographyEN: String
+  biographyFR: String
+  phoneFix: String
+  peplePhoneMobile: String
+  preferredLanguage: String
+  profession: String
+  profession01: String
+  profession02: String
+  languagesSpoken: String
+  websiteMain: String
+  imdbProfile: String
+  linkedinProfile: String
+  vimeoProfile: String
+  instagramProfile: String
+  twitterProfile: String
+  facebookProfile: String
+  socialMediaOther: String
+  bank01Name: String
+  bank01Code: String
+  bank01BicCode: String
+  bank01HolderName: String
+  bank01IbanNr: String
+  bank01IbanCountryCode: String
+  bank01AccountCountry: String
+  bank01AccountAddress: String
+  payPalAccount: String
+  
+  hasProfessions: [PersonProfession!]
+        @relationship(
+      type: "HAS_PROFESSION"
+      direction: OUT
+    )
+  organisations: [Organisation!]
+        @relationship(
+      type: "HAS_MEMBER"
+      properties: "HasMember"
+      direction: IN
+    )
+}
+
+type PersonProfession {
+  id: ID! @id(autogenerate: true)
+  radiatorID: String
+  name: String
+  description: String
+  people: [Person!]
+        @relationship(
+      type: "HAS_PROFESSION"
+      direction: IN
+  )
+}
+
+type Organisation {
+  id: ID! @id(autogenerate: true)
+  radiatorID: String
+  name: String
+  type: String
+  addressCity: String
+  addressCountry: String
+  addressCountryIso: String
+  addressStreet01: String
+  addressStreet02: String
+  addressZip: String
+  vatNumber: String
+  displayName: String
+  peopleName01: String
+  peopleName02: String
+  peopleName03: String
+  peopleName04: String
+  peopleName05: String
+  peopleName06: String
+  peopleName01JobTitle: String
+  peopleName02JobTitle: String
+  peopleName03JobTitle: String
+  organizationPeopleName04JobTitle: String
+  organizationPeopleNamer05JobTitle: String
+  organizationPeopleName06JobTitle: String
+  displayTags: String
+  mainEmail: String
+  fax: String
+  mainPhone: String
+  notes: String
+  website: String
+  fullAddress: String
+  tBankCode: String
+  bankName: String
+  bankBic: String
+  bankIban: String
+  banktNo: String
+  bankAddress: String
+  organizationVimeoPage: String
+  facebookFanPage: String
+  instagramProfile: String
+  youtubeProfile: String
+  twitterProfile: String
+
+  countMembers: Int!
+    @cypher(
+      statement: "MATCH (this)-[x:HAS_MEMBER]->(:Person) return COUNT(x)"
+    )
+  people: [Person!]
+        @relationship(
+      type: "HAS_MEMBER"
+      properties: "HasMember"
+      direction: OUT
+    )
+}
+
+interface HasMember @relationshipProperties {
+  fromDate: String
+  toDate: String
+}
+
 type Query {
   filmCount: Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
   filmFestivalCount: Int!
-    @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
+  @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
   devTaskCount: Int! @cypher(statement: "MATCH (u:DevTask) RETURN COUNT(u)")
+  organisationCount: Int! @cypher(statement: "MATCH (u:Organisation) RETURN COUNT(u)")
+  personCount: Int! @cypher(statement: "MATCH (u:Person) RETURN COUNT(u)")
+  personProfessionCount: Int! @cypher(statement: "MATCH (u:PersonProfession) RETURN COUNT(u)")
   user(id: String!): User
   users(name: String): [User!]!
   #filmSubmissions: [Film!] @cypher(statement: "MATCH (a:Film)-[x]->(b:FilmFestival) return a, x, b")

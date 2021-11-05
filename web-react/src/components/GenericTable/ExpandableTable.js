@@ -20,16 +20,9 @@ import { Message } from 'primereact/message'
 import { red } from '@material-ui/core/colors'
 import { fontWeight } from '@material-ui/system'
 
-export const ExpandableTable = (
-  Queries,
-  Models,
-  HeaderTitle = 'Items',
-  HeaderVerb
-) => {
+export const ExpandableTable = (Queries, Models, HeaderTitle = 'Items', HeaderVerb) => {
   // Items
-  const [selectedColumns, setSelectedColumns] = useState(
-    Models.columns.filter((c) => !c.hidden && c.isDefault)
-  )
+  const [selectedColumns, setSelectedColumns] = useState(Models.columnsTable.filter((c) => !c.hidden && c.isDefault))
   // Others
   const [globalFilter, setGlobalFilter] = useState(null)
   // Show hide
@@ -50,8 +43,7 @@ export const ExpandableTable = (
 
   useEffect(() => {
     if (isMounted.current) {
-      const summary =
-        expandedRows !== null ? 'All Rows Expanded' : 'All Rows Collapsed'
+      const summary = expandedRows !== null ? 'All Rows Expanded' : 'All Rows Collapsed'
       toast.current.show({
         severity: 'success',
         summary: `${summary}`,
@@ -119,28 +111,12 @@ export const ExpandableTable = (
       <Fragment>
         <h6>{header}</h6>
         <DataTable stripedRows showGridlines value={dataEdges}>
-          <Column
-            field="node.nameInternational"
-            header="Name"
-            sortable
-          ></Column>
-          <Column
-            field="applicationDate"
-            header="Application Date"
-            sortable
-          ></Column>
+          <Column field="node.nameInternational" header="Name" sortable></Column>
+          <Column field="applicationDate" header="Application Date" sortable></Column>
           <Column field="feeUSD" header="Fee USD" sortable></Column>
           <Column field="feeEUR" header="Fee EUR" sortable></Column>
-          <Column
-            field="waivedAmountUSD"
-            header="Waived Amount USD"
-            sortable
-          ></Column>
-          <Column
-            field="waivedAmountEUR"
-            header="Waived Amount EUR"
-            sortable
-          ></Column>
+          <Column field="waivedAmountUSD" header="Waived Amount USD" sortable></Column>
+          <Column field="waivedAmountEUR" header="Waived Amount EUR" sortable></Column>
         </DataTable>
       </Fragment>
     )
@@ -150,40 +126,17 @@ export const ExpandableTable = (
     return (
       <div className="orders-subtable">
         <h6>Budget</h6>
-        <DataTable
-          stripedRows
-          showGridlines
-          value={data.hasEntryFeesConnection.edges}
-        >
-          <Column
-            field="node.nameInternational"
-            header="Name"
-            sortable
-          ></Column>
+        <DataTable stripedRows showGridlines value={data.hasEntryFeesConnection.edges}>
+          <Column field="node.nameInternational" header="Name" sortable></Column>
           <Column field="receiveDate" header="Receive Date" sortable></Column>
           <Column field="budgetUSD" header="Budget USD" sortable></Column>
           <Column field="budgetEUR" header="Budget EUR" sortable></Column>
         </DataTable>
-        {submissionDatatable(
-          'Submitted To',
-          data.submittedToFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Selected At',
-          data.selectedAtFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Shortlisted At',
-          data.shortlistedAtFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'To Submit',
-          data.toSubmitToFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Not Selected At ',
-          data.notSelectedAtFilmFestivalsConnection.edges
-        )}
+        {submissionDatatable('Submitted To', data.submittedToFilmFestivalsConnection.edges)}
+        {submissionDatatable('Selected At', data.selectedAtFilmFestivalsConnection.edges)}
+        {submissionDatatable('Shortlisted At', data.shortlistedAtFilmFestivalsConnection.edges)}
+        {submissionDatatable('To Submit', data.toSubmitToFilmFestivalsConnection.edges)}
+        {submissionDatatable('Not Selected At ', data.notSelectedAtFilmFestivalsConnection.edges)}
       </div>
     )
   }
@@ -191,83 +144,26 @@ export const ExpandableTable = (
   return (
     <div>
       {loading && !error && <p>Loading...</p>}
-      {error && !loading && (
-        <Message
-          severity="error"
-          detail={
-            error?.message ??
-            'Error when loading, please contact the administrator'
-          }
-        ></Message>
-      )}
+      {error && !loading && <Message severity="error" detail={error?.message ?? 'Error when loading, please contact the administrator'}></Message>}
       {data && !loading && !error && (
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
-            <DataTable
-              value={data?.[Object.keys(data)[0]]}
-              expandedRows={expandedRows}
-              onRowToggle={(e) => setExpandedRows(e.data)}
-              onRowExpand={onRowExpand}
-              onRowCollapse={onRowCollapse}
-              rowExpansionTemplate={rowExpansionTemplate}
-              globalFilter={globalFilter}
-              paginator
-              rows={100}
-              rowsPerPageOptions={[25, 50, 100, 200]}
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items"
-              dataKey="id"
-              header={header(setGlobalFilter, HeaderTitle, HeaderVerb)}
-            >
+            <DataTable resizableColumns columnResizeMode="fit" value={data?.[Object.keys(data)[0]]} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate} globalFilter={globalFilter} paginator rows={100} rowsPerPageOptions={[25, 50, 100, 200]} paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items" dataKey="id" header={header(setGlobalFilter, HeaderTitle, HeaderVerb)}>
               <Column expander style={{ width: '3em' }} />
               <Column
                 filter
                 field="titleInternational"
                 header="Title International"
-                style={{ color: '#9C27B0', fontWeight: 600}} // purple
+                style={{ color: '#9C27B0', fontWeight: 600, width: '30%' }} // purple
                 sortable
               />
-              <Column
-                filter
-                field="countSubmittedToFilmFestivals"
-                header="Submitted To Festivals"
-                sortable
-              />
-              <Column
-                filter
-                field="countSelectedAtFilmFestivals"
-                header="Selected At Festivals"
-                style={{ color: 'green', fontWeight: 600}}
-                sortable
-              />
-              <Column
-                filter
-                field="countShortlistedAtFilmFestivals"
-                header="Shortlisted at Festivals"
-                sortable
-              />
-              <Column
-                filter
-                field="countToSubmitToFilmFestivals"
-                header="To Submit To Festivals"
-                
-                sortable
-              />
-              <Column
-                filter
-                field="countNotSelectedAtFilmFestivals"
-                header="Not Selected At Festivals"
-                style={{ color: 'red', fontWeight: 600}}
-                sortable
-              />
-              <Column
-                filter
-                field="countFestivalApplications"
-                header="Total Number of Applications"
-                style={{ textDecoration: 'underline'}}
-                sortable
-              />
+              <Column filter field="countSubmittedToFilmFestivals" header="Submitted To Festivals" sortable />
+              <Column filter field="countSelectedAtFilmFestivals" header="Selected At Festivals" style={{ color: 'green', fontWeight: 600 }} sortable />
+              <Column filter field="countShortlistedAtFilmFestivals" header="Shortlisted at Festivals" sortable />
+              <Column filter field="countToSubmitToFilmFestivals" header="To Submit To Festivals" sortable />
+              <Column filter field="countNotSelectedAtFilmFestivals" header="Not Selected At Festivals" style={{ color: 'red', fontWeight: 600 }} sortable />
+              <Column filter field="countFestivalApplications" header="Total Number of Applications" style={{ textDecoration: 'underline' }} sortable />
             </DataTable>
           </div>
         </div>

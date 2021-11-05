@@ -88,11 +88,9 @@ async function startApolloServer() {
   app.listen({ host, port, path }, () => {
     console.log(`GraphQL server ready at http://${host}:${port}${path}`)
   })
-  exports.handler = server.createHandler()
   return { server, app }
 }
 startApolloServer()
-
 
 // const { verifyToken } = require('./utils/verifyToken')
 // var jwt = require('express-jwt')

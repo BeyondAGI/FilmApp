@@ -19,19 +19,13 @@ import './styles.css'
 import { Message } from 'primereact/message'
 import { red } from '@material-ui/core/colors'
 import { fontWeight } from '@material-ui/system'
-import { Button } from "primereact/button"
+import { Button } from 'primereact/button'
 import { ScalarLeafs } from 'graphql/validation/rules/ScalarLeafs'
+import { addResolveFunctionsToSchema } from 'graphql-tools'
 
-export const ExpandableTableEdit = (
-  Queries,
-  Models,
-  HeaderTitle = 'Items',
-  HeaderVerb
-) => {
+export const ExpandableTableEdit = (Queries, Models, HeaderTitle = 'Items', HeaderVerb) => {
   // Items
-  const [selectedColumns, setSelectedColumns] = useState(
-    Models.columns.filter((c) => !c.hidden && c.isDefault)
-  )
+  const [selectedColumns, setSelectedColumns] = useState(Models.columnsTable.filter((c) => !c.hidden && c.isDefault))
   // Others
   const [globalFilter, setGlobalFilter] = useState(null)
   // Show hide
@@ -52,8 +46,7 @@ export const ExpandableTableEdit = (
 
   useEffect(() => {
     if (isMounted.current) {
-      const summary =
-        expandedRows !== null ? 'All Rows Expanded' : 'All Rows Collapsed'
+      const summary = expandedRows !== null ? 'All Rows Expanded' : 'All Rows Collapsed'
       toast.current.show({
         severity: 'success',
         summary: `${summary}`,
@@ -119,38 +112,19 @@ export const ExpandableTableEdit = (
   const submissionDatatable = (header, dataEdges) => {
     return (
       <Fragment>
-        <span>        <h6 style={{ float: 'left'}}>{header}</h6>
-        <Button
-          icon      = "pi pi-plus"
-          className = "p-button-rounded p-button-success p-mr-2"
-          style={{ transform: 'scale(0.5)'}}
-          onClick={() => setShowFormDialog(true)}
-          disabled 
-        /></span>
+        <span>
+          {' '}
+          <h6 style={{ float: 'left' }}>{header}</h6>
+          <Button icon="pi pi-plus" className="p-button-rounded p-button-success p-mr-2" style={{ transform: 'scale(0.5)' }} onClick={() => setShowFormDialog(true)} disabled />
+        </span>
 
-        <DataTable stripedRows showGridlines value={dataEdges}>
-          <Column
-            field="node.nameInternational"
-            header="Name"
-            sortable
-          ></Column>
-          <Column
-            field="applicationDate"
-            header="Application Date"
-            sortable
-          ></Column>
+        <DataTable showGridlines value={dataEdges}>
+          <Column field="node.nameInternational" header="Name" sortable></Column>
+          <Column field="applicationDate" header="Application Date" sortable></Column>
           <Column field="feeUSD" header="Fee USD" sortable></Column>
           <Column field="feeEUR" header="Fee EUR" sortable></Column>
-          <Column
-            field="waivedAmountUSD"
-            header="Waived Amount USD"
-            sortable
-          ></Column>
-          <Column
-            field="waivedAmountEUR"
-            header="Waived Amount EUR"
-            sortable
-          ></Column>
+          <Column field="waivedAmountUSD" header="Waived Amount USD" sortable></Column>
+          <Column field="waivedAmountEUR" header="Waived Amount EUR" sortable></Column>
         </DataTable>
       </Fragment>
     )
@@ -160,40 +134,17 @@ export const ExpandableTableEdit = (
     return (
       <div className="orders-subtable">
         <h6>Budget</h6>
-        <DataTable
-          stripedRows
-          showGridlines
-          value={data.hasEntryFeesConnection.edges}
-        >
-          <Column
-            field="node.nameInternational"
-            header="Name"
-            sortable
-          ></Column>
+        <DataTable stripedRows showGridlines value={data.hasEntryFeesConnection.edges}>
+          <Column field="node.nameInternational" header="Name" sortable></Column>
           <Column field="receiveDate" header="Receive Date" sortable></Column>
           <Column field="budgetUSD" header="Budget USD" sortable></Column>
           <Column field="budgetEUR" header="Budget EUR" sortable></Column>
         </DataTable>
-        {submissionDatatable(
-          'Submitted To',
-          data.submittedToFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Selected At',
-          data.selectedAtFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Shortlisted At',
-          data.shortlistedAtFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'To Submit',
-          data.toSubmitToFilmFestivalsConnection.edges
-        )}
-        {submissionDatatable(
-          'Not Selected At ',
-          data.notSelectedAtFilmFestivalsConnection.edges
-        )}
+        {submissionDatatable('Submitted To', data.submittedToFilmFestivalsConnection.edges)}
+        {submissionDatatable('Selected At', data.selectedAtFilmFestivalsConnection.edges)}
+        {submissionDatatable('Shortlisted At', data.shortlistedAtFilmFestivalsConnection.edges)}
+        {submissionDatatable('To Submit', data.toSubmitToFilmFestivalsConnection.edges)}
+        {submissionDatatable('Not Selected At ', data.notSelectedAtFilmFestivalsConnection.edges)}
       </div>
     )
   }
@@ -201,100 +152,31 @@ export const ExpandableTableEdit = (
   return (
     <div>
       {loading && !error && <p>Loading...</p>}
-      {error && !loading && (
-        <Message
-          severity="error"
-          detail={
-            error?.message ??
-            'Error when loading, please contact the administrator'
-          }
-        ></Message>
-      )}
+      {error && !loading && <Message severity="error" detail={error?.message ?? 'Error when loading, please contact the administrator'}></Message>}
       {data && !loading && !error && (
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
-          <Button
-        label="New"
-        icon="pi pi-plus"
-        className="p-button-success p-mr-2"
-        onClick={() => setShowFormDialog(true)}
-      />
+          <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => setShowFormDialog(true)} />
           <div className="card">
-            <DataTable
-              value={data?.[Object.keys(data)[0]]}
-              expandedRows={expandedRows}
-              onRowToggle={(e) => setExpandedRows(e.data)}
-              onRowExpand={onRowExpand}
-              onRowCollapse={onRowCollapse}
-              rowExpansionTemplate={rowExpansionTemplate}
-              globalFilter={globalFilter}
-              paginator
-              rows={100}
-              rowsPerPageOptions={[25, 50, 100, 200]}
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items"
-              dataKey="id"
-              header={header(setGlobalFilter, HeaderTitle, HeaderVerb)}
-            >
+            <DataTable value={data?.[Object.keys(data)[0]]} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate} globalFilter={globalFilter} paginator rows={100} rowsPerPageOptions={[25, 50, 100, 200]} paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items" dataKey="id" header={header(setGlobalFilter, HeaderTitle, HeaderVerb)}>
               <Column expander style={{ width: '3em' }} />
               <Column
                 filter
                 field="titleInternational"
                 header="Title International"
-                style={{ color: '#9C27B0', fontWeight: 600}} // purple
+                style={{ color: '#9C27B0', fontWeight: 600 }} // purple
                 sortable
               />
-              <Column
-                filter
-                field="countSubmittedToFilmFestivals"
-                header="Submitted To Festivals"
-                sortable
-              />
-              <Column
-                filter
-                field="countSelectedAtFilmFestivals"
-                header="Selected At Festivals"
-                style={{ color: 'green', fontWeight: 600}}
-                sortable
-              />
-              <Column
-                filter
-                field="countShortlistedAtFilmFestivals"
-                header="Shortlisted at Festivals"
-                sortable
-              />
-              <Column
-                filter
-                field="countToSubmitToFilmFestivals"
-                header="To Submit To Festivals"
-                
-                sortable
-              />
-              <Column
-                filter
-                field="countNotSelectedAtFilmFestivals"
-                header="Not Selected At Festivals"
-                style={{ color: 'red', fontWeight: 600}}
-                sortable
-              />
-              <Column
-                filter
-                field="countFestivalApplications"
-                header="Total Number of Applications"
-                style={{ textDecoration: 'underline'}}
-                sortable
-              />
+              <Column filter field="countSubmittedToFilmFestivals" header="Submitted To Festivals" sortable />
+              <Column filter field="countSelectedAtFilmFestivals" header="Selected At Festivals" style={{ color: 'green', fontWeight: 600 }} sortable />
+              <Column filter field="countShortlistedAtFilmFestivals" header="Shortlisted at Festivals" sortable />
+              <Column filter field="countToSubmitToFilmFestivals" header="To Submit To Festivals" sortable />
+              <Column filter field="countNotSelectedAtFilmFestivals" header="Not Selected At Festivals" style={{ color: 'red', fontWeight: 600 }} sortable />
+              <Column filter field="countFestivalApplications" header="Total Number of Applications" style={{ textDecoration: 'underline' }} sortable />
             </DataTable>
           </div>
           <Fragment>
-            <GenericAddEditFormRelationship
-              Queries={Queries}
-              Models={Models}
-              showFormDialog={showFormDialog}
-              setShowFormDialog={setShowFormDialog}
-              toast={toast}
-              itemData={rowEdit ? rowActionItemDetails.data : rowEdit}
-            />
+            <GenericAddEditFormRelationship Queries={Queries} Models={Models} showFormDialog={showFormDialog} setShowFormDialog={setShowFormDialog} toast={toast} itemData={rowEdit ? rowActionItemDetails.data : rowEdit} />
           </Fragment>
         </div>
       )}

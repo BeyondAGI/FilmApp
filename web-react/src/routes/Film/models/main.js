@@ -145,27 +145,26 @@ export let emptyItem = {
   filmin: '',
   gayBingeTV: '',
   movieBloc: '',
-
 }
 
-export const columns = [
+export const columnsTable = [
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   { field: 'id', header: 'Neo4J UUID', hidden: true },
-  { field: 'titleInternational', header: 'International Title', colGroup: 'General Info' , isDefault:true },
+  { field: 'titleInternational', header: 'International Title', colGroup: 'General Info', isDefault: true },
   { field: 'titleOriginal', header: 'Original Title' },
   { field: 'loglineEN', header: 'EN Logline' },
   { field: 'synopsisShortEN', header: 'EN Synopsis' },
   { field: 'synopsisLongEN', header: 'EN Synopsis' },
   { field: 'duration', header: 'Duration', type: FieldType.DURATION },
-  { field: 'productionYear', header: 'Production Year', type: FieldType.INTEGER, isDefault:true },
+  { field: 'productionYear', header: 'Production Year', type: FieldType.INTEGER, isDefault: true },
   { field: 'productionMonth', header: 'Production Month', type: FieldType.INTEGER },
   { field: 'worldPremiereDate', header: 'World Premier Date', type: FieldType.DATE },
-  { field: 'status', header: 'Status', type: FieldType.DROPDOWN, options: 'filmStatuses', isDefault:true },
+  { field: 'status', header: 'Status', type: FieldType.DROPDOWN, options: 'filmStatuses', isDefault: true },
   { field: 'framerate', header: 'Framerate', type: FieldType.DROPDOWN, options: 'framerates' },
   { field: 'ageRating', header: 'Age Rating', colGroup: 'Parental Guidance' },
 ]
-export const columnsAll = [
-  { field: 'id', header: 'Neo4J UUID', hidden: true  },
+export const columnsForm = [
+  { field: 'id', header: 'Neo4J UUID', hidden: true },
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   { field: 'titleInternational', header: 'International Title', colGroup: 'General Info' },
   { field: 'titleOriginal', header: 'Original Title' },

@@ -13,28 +13,12 @@ import { useMutation } from '@apollo/client'
 import { ToastSuccessError } from '../Toast/ToastMessages'
 import { FormDialogFooter } from './FormDialogFooter'
 
-export const GenericAddEditForm = ({
-  Queries,
-  Models,
-  showFormDialog,
-  setShowFormDialog,
-  toast,
-  itemData,
-}) => {
+export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFormDialog, toast, itemData }) => {
   // Other
   const [showToast, setShowToast] = useState(false)
   const [formData, setFormData] = useState({})
   // Dialog
-  const [
-    create,
-    { data, loading, error, called },
-  ] = useMutation(Queries.CREATE_ITEMS, { errorPolicy: 'all' })
-
-  // const [relationship01, relationship01Result] = useMutation(Queries.CREATE_ITEMS_02, { errorPolicy: 'all' })
-
-  // const [
-  //   createRelationship, createRelationshipResult
-  // ] = useMutation(Queries.CREATE_RELATIONSHIPS, { errorPolicy: 'all' })
+  const [create, { data, loading, error, called }] = useMutation(Queries.CREATE_ITEMS, { errorPolicy: 'all' })
 
   const [edit, editResult] = useMutation(Queries.UPDATE_ITEM, {
     errorPolicy: 'all',
@@ -52,15 +36,6 @@ export const GenericAddEditForm = ({
       setFormData(data)
       if (data.id) {
         await edit({ variables: { id: data.id, updateInput: rest } })
-      }
-      else if (data?._isRelationship == true) {
-        // if (data?._RELATIONSHIP_ == 'submittedToFilmFestivals') {
-        //   await relationship01({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
-        // }
-        if (data?._RELATIONSHIP_ == 'shortlistedAtFilmFestivals') {
-          await create({ variables: {fromId: data._fromId_, toId: data._toId_, relationshipName: data._RELATIONSHIP_, relationshipProperties: (({ _fromId_, _toId_, _RELATIONSHIP_,  _isRelationship, ...o }) => o)(data)}})
-        }
-          
       } else {
         await create({ variables: { input: [data] } })
       }
@@ -77,37 +52,20 @@ export const GenericAddEditForm = ({
 
   return (
     <Fragment>
-      {ToastSuccessError(
-        toast,
-        showToast,
-        setShowToast,
-        called,
-        loading,
-        error
-      )}
+      {ToastSuccessError(toast, showToast, setShowToast, called, loading, error)}
       {ToastSuccessError(
         toast,
         showToast,
         setShowToast,
         editResult.called,
         editResult.loading,
-        editResult.error,
+        editResult.error
         // createRelationshipResult.called,
         // createRelationshipResult.loading,
         // createRelationshipResult.error
       )}
-      <Dialog
-        visible={showFormDialog}
-        style={{ width: '700px' }}
-        header="Add/Edit Form"
-        maskClassName={{ zIndex: '2500' }}
-        modal
-        baseZIndex="2000"
-        className="p-fluid"
-        footer={FormDialogFooter(hideDialog, formik.handleSubmit)}
-        onHide={hideDialog}
-      >
-        {GenericInputForm(Models.columnsAll, formik)}
+      <Dialog visible={showFormDialog} style={{ width: '900px' }} header="Add/Edit Form" maskClassName={{ zIndex: '2500' }} modal baseZIndex="2000" className="p-fluid" footer={FormDialogFooter(hideDialog, formik.handleSubmit)} onHide={hideDialog}>
+        {GenericInputForm(Models.columnsForm, formik, formik.values?.id != undefined ? true : false, itemData?.[Object.keys(itemData)[0]][0].id)}
       </Dialog>
     </Fragment>
   )

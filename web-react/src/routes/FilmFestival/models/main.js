@@ -63,44 +63,31 @@ export let emptyItem = {
   venue05: '',
   selectionLaurel: '', // Laurels
   awardLaurel: '',
+  comments: '',
 }
-
-export const columns = [
+export const columnsTable = [
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   { field: 'id', header: 'Neo4J UUID', hidden: true },
-  {
-    field: 'nameInternational',
-    header: 'International Name',
-    colGroup: 'General Info',
-    isDefault:true
-  },
+  { field: 'nameInternational', header: 'International Name', colGroup: 'General Info', isDefault: true },
   { field: 'address', header: 'Address' },
   { field: 'about', header: 'About' },
   { field: 'email', header: 'Email' },
   { field: 'telephone', header: 'Telephone' },
   { field: 'level', header: 'Level' },
   { field: 'foundingYear', header: 'Founding Year' },
-  { field: 'locatedInCountry', header: 'Country', isDefault:true },
+  { field: 'locatedInCountry', header: 'Country', isDefault: true },
   { field: 'takesPlaceInCity', header: 'City' },
-  {
-    field: 'acceptsFilmLenghts',
-    header: 'Film Lengths',
-    colGroup: 'Film Requirements',
-  },
+  { field: 'acceptsFilmLenghts', header: 'Film Lengths', colGroup: 'Film Requirements' },
   { field: 'acceptsFilmGenre01', header: 'Genre 01' },
   { field: 'rulesAndRegulations', header: 'Rules and Regulations' },
-  { field: 'premiereRequirement', header: 'Premiere Requirement', isDefault:true},
+  { field: 'premiereRequirement', header: 'Premiere Requirement', isDefault: true },
   { field: 'filmAge', header: 'Film Age' },
 ]
 
-export const columnsAll = [
+export const columnsForm = [
   { field: 'id', header: 'Neo4J UUID', hidden: true },
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
-  {
-    field: 'nameInternational',
-    header: 'International Name',
-    colGroup: 'General Info',
-  },
+  { field: 'nameInternational', header: 'International Name', colGroup: 'General Info' },
   { field: 'nameOriginal', header: 'Original Name' },
   { field: 'address', header: 'Address' },
   { field: 'about', header: 'About', type: FieldType.TEXTAREA },
@@ -110,78 +97,26 @@ export const columnsAll = [
   { field: 'dateEnd', header: 'End Date', type: FieldType.DATE },
   { field: 'level', header: 'Level' },
   { field: 'foundingYear', header: 'Founding Year', type: FieldType.INTEGER },
-  {
-    field: 'locatedInCountry',
-    header: 'Country',
-    type: FieldType.DROPDOWN,
-    options: 'countries',
-  },
+  { field: 'locatedInCountry', header: 'Country', type: FieldType.DROPDOWN, options: 'countries' },
   { field: 'takesPlaceInCity', header: 'City' },
   { field: 'awards', header: 'Awards' },
-
-  {
-    field: 'isFIAPFAccredited',
-    header: 'FIAPF',
-    colGroup: 'Accreditations',
-    type: FieldType.BOOLEAN,
-  },
+  { field: 'isFIAPFAccredited', header: 'FIAPF', colGroup: 'Accreditations', type: FieldType.BOOLEAN },
   { field: 'isAcademyAccredited', header: 'Academy', type: FieldType.BOOLEAN },
   { field: 'isEFAAccredited', header: 'EFA', type: FieldType.BOOLEAN },
   { field: 'isBaftaAccredited', header: 'Bafta', type: FieldType.BOOLEAN },
   { field: 'isMeliesAccredited', header: 'Méliès', type: FieldType.BOOLEAN },
-  {
-    field: 'isCanandianScreenGuildAccredited',
-    header: 'Canandian Screen Guild',
-    type: FieldType.BOOLEAN,
-  },
+  { field: 'isCanandianScreenGuildAccredited', header: 'Canandian Screen Guild', type: FieldType.BOOLEAN },
   { field: 'isEAAAccredited', header: 'EAA', type: FieldType.BOOLEAN },
   { field: 'isFriends', header: 'Friends', type: FieldType.BOOLEAN },
   { field: 'isPartner', header: 'Partner', type: FieldType.BOOLEAN },
-
-  {
-    field: 'acceptsFilmLenghts',
-    header: 'Film Lengths',
-    colGroup: 'Film Requirements',
-    type: FieldType.DROPDOWN,
-    options: 'filmLengths',
-  },
-  {
-    field: 'acceptsFilmGenre01',
-    header: 'Genre 01',
-    type: FieldType.DROPDOWN,
-    options: 'filmGenres',
-  },
-  {
-    field: 'acceptsFilmGenre02',
-    header: 'Genre 02',
-    type: FieldType.DROPDOWN,
-    options: 'filmGenres',
-  },
-  {
-    field: 'acceptsFilmGenre03',
-    header: 'Genre 03',
-    type: FieldType.DROPDOWN,
-    options: 'filmGenres',
-  },
+  { field: 'acceptsFilmLenghts', header: 'Film Lengths', colGroup: 'Film Requirements', type: FieldType.DROPDOWN, options: 'filmLengths' },
+  { field: 'acceptsFilmGenre01', header: 'Genre 01', type: FieldType.DROPDOWN, options: 'filmGenres' },
+  { field: 'acceptsFilmGenre02', header: 'Genre 02', type: FieldType.DROPDOWN, options: 'filmGenres' },
+  { field: 'acceptsFilmGenre03', header: 'Genre 03', type: FieldType.DROPDOWN, options: 'filmGenres' },
   { field: 'deadlineMonth', header: 'Deadline Month' },
-  {
-    field: 'rulesAndRegulations',
-    header: 'Rules and Regulations',
-    type: FieldType.TEXTAREA,
-  },
-  {
-    field: 'premiereRequirement',
-    header: 'Premiere Requirement',
-    type: FieldType.DROPDOWN,
-    options: 'premierRequirements',
-  },
-  {
-    field: 'filmAge',
-    header: 'Film Age',
-    type: FieldType.DROPDOWN,
-    options: 'filmAges',
-  },
-
+  { field: 'rulesAndRegulations', header: 'Rules and Regulations', type: FieldType.TEXTAREA },
+  { field: 'premiereRequirement', header: 'Premiere Requirement', type: FieldType.DROPDOWN, options: 'premierRequirements' },
+  { field: 'filmAge', header: 'Film Age', type: FieldType.DROPDOWN, options: 'filmAges' },
   { field: 'organisers', header: 'Organizers', colGroup: 'Management' },
   { field: 'directors', header: 'Directors' },
   { field: 'seniorProgrammer01', header: 'Senior Programmer 01' },
@@ -189,7 +124,6 @@ export const columnsAll = [
   { field: 'seniorProgrammer03', header: 'Senior Programmer 03' },
   { field: 'shortsProgrammer01', header: 'Shorts Programmer 01' },
   { field: 'shortsProgrammer02', header: 'Shorts Programmer 02' },
-
   { field: 'websiteMain', header: 'Main Website', colGroup: 'Links' },
   { field: 'facebookPage', header: 'Facebook Page' },
   { field: 'instagramProfile', header: 'Instagram Profile' },
@@ -197,55 +131,21 @@ export const columnsAll = [
   { field: 'cinandoProfile', header: 'Cinando' },
   { field: 'iMDBProfile', header: 'IMDB' },
   { field: 'filmfreewayLink', header: 'FilmFreeway' },
-
-  {
-    field: 'submissionPageOriginal',
-    header: 'Page Original',
-    colGroup: 'Submission details',
-  },
+  { field: 'submissionPageOriginal', header: 'Page Original', colGroup: 'Submission details' },
   { field: 'submissionPageFilmfreeway', header: 'Page FilmFreeway' },
-  {
-    field: 'submissionDateEarly',
-    header: 'Submission Date Early',
-    type: FieldType.DATE,
-  },
-  {
-    field: 'submissionDateRegular',
-    header: 'Submission Date Regular',
-    type: FieldType.DATE,
-  },
-  {
-    field: 'submissionDateLate',
-    header: 'Submission Date Late',
-    type: FieldType.DATE,
-  },
-  {
-    field: 'submissionFeeEarly',
-    header: 'Submission Fee Early ($)',
-    type: FieldType.CURRENCY,
-  },
-  {
-    field: 'submissionFeeRegular',
-    header: 'Submission Fee Regular ($)',
-    type: FieldType.CURRENCY,
-  },
-  {
-    field: 'submissionFeesLate',
-    header: 'Submission Fee Late ($)',
-    type: FieldType.CURRENCY,
-  },
-  {
-    field: 'submissionRegulations',
-    header: 'Submission Regulations',
-    type: FieldType.TEXTAREA,
-  },
-
+  { field: 'submissionDateEarly', header: 'Submission Date Early', type: FieldType.DATE },
+  { field: 'submissionDateRegular', header: 'Submission Date Regular', type: FieldType.DATE },
+  { field: 'submissionDateLate', header: 'Submission Date Late', type: FieldType.DATE },
+  { field: 'submissionFeeEarly', header: 'Submission Fee Early ($)', type: FieldType.CURRENCY },
+  { field: 'submissionFeeRegular', header: 'Submission Fee Regular ($)', type: FieldType.CURRENCY },
+  { field: 'submissionFeesLate', header: 'Submission Fee Late ($)', type: FieldType.CURRENCY },
+  { field: 'submissionRegulations', header: 'Submission Regulations', type: FieldType.TEXTAREA },
   { field: 'venue01', header: 'Venue 01', colGroup: 'Venues' },
   { field: 'venue02', header: 'Venue 02' },
   { field: 'venue03', header: 'Venue 03' },
   { field: 'venue04', header: 'Venue 04' },
   { field: 'venue05', header: 'Venue 05' },
-
   { field: 'selectionLaurel', header: 'Selection Laurel', colGroup: 'Laurels' },
   { field: 'awardLaurel', header: 'Award Laurel' },
+  { field: 'comments', header: 'Comments', colGroup: 'Comments', type: FieldType.TEXTAREA },
 ]

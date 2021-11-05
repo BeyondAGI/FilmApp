@@ -17,12 +17,12 @@ import { DeleteItemDialog } from './Dialogs/DeleteItem'
 import { DeleteItemsDialog } from './Dialogs/DeleteItems'
 import './styles.css'
 import { Message } from 'primereact/message'
+import { Skeleton } from 'primereact/skeleton'
+import { LoadingSkeleton } from './Others/LoadingSkeleton'
 
 export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
   // Items
-  const [selectedColumns, setSelectedColumns] = useState(
-    Models.columns.filter((c) => !c.hidden && c.isDefault)
-  )
+  const [selectedColumns, setSelectedColumns] = useState(Models.columnsTable.filter((c) => !c.hidden && c.isDefault))
   // Others
   const [globalFilter, setGlobalFilter] = useState(null)
   // Show hide
@@ -76,85 +76,24 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
 
   return (
     <div>
-      {DeleteItemsDialog(
-        rowsSelected,
-        Queries,
-        toast,
-        showToast,
-        setShowToast,
-        showDeleteItemsDialog,
-        setShowDeleteItemsDialog
-      )}
-      {DeleteItemDialog(
-        rowAction,
-        Queries,
-        toast,
-        showToast,
-        setShowToast,
-        showDeleteItemDialog,
-        setShowDeleteItemDialog
-      )}
-      {loading && !error && <p>Loading...</p>}
-      {error && !loading && (
-            <Message
-              severity="error"
-              detail={error?.message ?? 'Error when loading, please contact the administrator'}
-            ></Message>
-      )}
+      {DeleteItemsDialog(rowsSelected, Queries, toast, showToast, setShowToast, showDeleteItemsDialog, setShowDeleteItemsDialog)}
+      {DeleteItemDialog(rowAction, Queries, toast, showToast, setShowToast, showDeleteItemDialog, setShowDeleteItemDialog)}
+      {loading && !error && LoadingSkeleton()}
+      {error && !loading && <Message severity="error" detail={error?.message ?? 'Error when loading, please contact the administrator'}></Message>}
       {data && !loading && !error && (
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
-            <Toolbar
-              className="p-mb-4"
-              left={leftToolbarTemplate(
-                Models,
-                selectedColumns,
-                setSelectedColumns,
-                rowsSelected,
-                openNew,
-                deleteItems
-              )}
-              right={rightToolbarTemplate(exportCSV)}
-            ></Toolbar>
+            <Toolbar left={leftToolbarTemplate(Models, selectedColumns, setSelectedColumns, rowsSelected, openNew, deleteItems)} right={rightToolbarTemplate(exportCSV)}></Toolbar>
 
-            <DataTable
-              ref={dt}
-              value={data?.[Object.keys(data)[0]]}
-              selection={rowsSelected}
-              onSelectionChange={(e) => setRowsSelected(e.value)}
-              dataKey="id"
-              paginator
-              rows={100}
-              rowsPerPageOptions={[25, 50, 100, 200]}
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items"
-              globalFilter={globalFilter}
-              resizableColumns
-              headerColumnGroup={headerGroup(selectedColumns)}
-              header={header(setGlobalFilter, HeaderTitle)}
-            >
-              <Column
-                selectionMode="multiple"
-                headerStyle={{ width: '4rem' }}
-              ></Column>
+            <DataTable ref={dt} value={data?.[Object.keys(data)[0]]} selection={rowsSelected} onSelectionChange={(e) => setRowsSelected(e.value)} dataKey="id" paginator rows={100} rowsPerPageOptions={[25, 50, 100, 200]} paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items" globalFilter={globalFilter} resizableColumns headerColumnGroup={headerGroup(selectedColumns)} header={header(setGlobalFilter, HeaderTitle)}>
+              <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
               {columnComponents(selectedColumns)}
-              <Column
-                body={(rowData) =>
-                  ActionBodyTemplate(rowData, deleteItem, editItem)
-                }
-              ></Column>
+              <Column body={(rowData) => ActionBodyTemplate(rowData, deleteItem, editItem)}></Column>
             </DataTable>
           </div>
           <Fragment>
-            <GenericAddEditForm
-              Queries={Queries}
-              Models={Models}
-              showFormDialog={showFormDialog}
-              setShowFormDialog={setShowFormDialog}
-              toast={toast}
-              itemData={rowEdit ? rowActionItemDetails.data : rowEdit}
-            />
+            <GenericAddEditForm Queries={Queries} Models={Models} showFormDialog={showFormDialog} setShowFormDialog={setShowFormDialog} toast={toast} itemData={rowEdit ? rowActionItemDetails.data : rowEdit} />
           </Fragment>
         </div>
       )}

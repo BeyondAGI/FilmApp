@@ -11,7 +11,7 @@ export const headerGroup = (selectedColumns) => (
       <Row>
         <Column headerStyle={{ width: '4rem' }}></Column>
         {columnComponentsGroup(selectedColumns)}
-        <Column key="Actions" header="" />
+        <Column key="Actions" header="" style={{ width: '10rem' }}/>
       </Row>
       <Row>
         <Column
@@ -19,12 +19,12 @@ export const headerGroup = (selectedColumns) => (
           headerStyle={{ width: '4rem' }}
         ></Column>
         {columnComponents(selectedColumns)}
-        <Column key="Actions" header="(Actions)" />
+        <Column key="Actions" header="(Actions)" style={{ width: '10rem' }} />
       </Row>
       <Row>
         <Column></Column>
         {columnComponentsFilter(selectedColumns)}
-        <Column key="Actions" header="" />
+        <Column key="Actions" header="" style={{ width: '10rem' }}/>
       </Row>
     </ColumnGroup>
   )

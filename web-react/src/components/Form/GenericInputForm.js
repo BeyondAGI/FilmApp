@@ -15,12 +15,10 @@ import { DisplayFormikDebugState } from '../../helpers/FormikHelper'
 import { IS_DEBUG_FORM_ENABLED } from '../../common/constants'
 import { useQuery, gql } from '@apollo/client'
 import { useInjection } from 'inversify-react'
-
+import { TabView, TabPanel } from 'primereact/tabview'
+import { SimpleTable } from '../GenericTable/SimpleTable'
 
 const ToInputField = (col, formik, optionsList) => {
-
-  
-
   // const [optionsList, setOptionsList] = useState([])
   // // let optionsList = _optionListService.getOptionsList()
   // useEffect(() => {
@@ -33,14 +31,9 @@ const ToInputField = (col, formik, optionsList) => {
     return <Fragment></Fragment>
   }
 
-  const isFormFieldValid = (name) =>
-    !!(formik.touched[name] && formik.errors[name])
+  const isFormFieldValid = (name) => !!(formik.touched[name] && formik.errors[name])
   const getFormErrorMessage = (name) => {
-    return (
-      isFormFieldValid(name) && (
-        <small className="p-error">{formik.errors[name]}</small>
-      )
-    )
+    return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>
   }
 
   switch (col.type) {
@@ -92,22 +85,7 @@ const ToInputField = (col, formik, optionsList) => {
       return (
         <Fragment>
           <span className="p-float-label">
-            <Dropdown
-              id={col.field}
-              name={col.field}
-              value={
-                optionsList[col.options]
-                  ? optionsList[col.options].find(
-                      (option) => option.value == formik.values[col.field]
-                    )?.value
-                  : ''
-              }
-              onChange={(option) =>
-                formik.setFieldValue(col.field, option.value)
-              }
-              options={optionsList[col.options]}
-              optionLabel="label"
-            />
+            <Dropdown id={col.field} name={col.field} value={optionsList[col.options] ? optionsList[col.options].find((option) => option.value == formik.values[col.field])?.value : ''} onChange={(option) => formik.setFieldValue(col.field, option.value)} options={optionsList[col.options]} optionLabel="label" />
             <label htmlFor={col.field}>{col.header}</label>
           </span>
         </Fragment>
@@ -192,35 +170,35 @@ const ToInputField = (col, formik, optionsList) => {
           {getFormErrorMessage(col.field)}
         </Fragment>
       )
-      case FieldType.DURATION:
-        return (
-          <Fragment>
-            <span className="p-float-label">
-              <InputNumber
-                id={col.field}
-                name={col.field}
-                mode="decimal"
-                maxFractionDigits={2}
-                value={formik.values[col.field]}
-                onValueChange={formik.handleChange}
-                showButtons
-                // buttonLayout="horizontal"
-                className={classNames({
-                  'p-invalid': isFormFieldValid(col.field),
-                })}
-              />
-              <label
-                htmlFor={col.field}
-                className={classNames({
-                  'p-error': isFormFieldValid(col.field),
-                })}
-              >
-                {col.header}
-              </label>
-            </span>
-            {getFormErrorMessage(col.field)}
-          </Fragment>
-        )
+    case FieldType.DURATION:
+      return (
+        <Fragment>
+          <span className="p-float-label">
+            <InputNumber
+              id={col.field}
+              name={col.field}
+              mode="decimal"
+              maxFractionDigits={2}
+              value={formik.values[col.field]}
+              onValueChange={formik.handleChange}
+              showButtons
+              // buttonLayout="horizontal"
+              className={classNames({
+                'p-invalid': isFormFieldValid(col.field),
+              })}
+            />
+            <label
+              htmlFor={col.field}
+              className={classNames({
+                'p-error': isFormFieldValid(col.field),
+              })}
+            >
+              {col.header}
+            </label>
+          </span>
+          {getFormErrorMessage(col.field)}
+        </Fragment>
+      )
     case FieldType.INTEGER:
       return (
         <Fragment>
@@ -284,7 +262,6 @@ const ToInputField = (col, formik, optionsList) => {
         <Fragment>
           <span className="p-float-label">
             <InputText
-            
               id={col.field}
               name={col.field}
               value={formik.values[col.field]}
@@ -308,40 +285,46 @@ const ToInputField = (col, formik, optionsList) => {
   }
 }
 
-// Display The Group Name
-const ToFormHeaderGroup = (col) => {
-  {
-    return col.colGroup ? (
-      <div>
-        <h4 className="p-text-left">{col.colGroup}</h4>
-      </div>
-    ) : (
-      <div />
-    )
-  }
-}
-
 // Display The Form
-const ToInputForm = (cols, formik) => {
-
+const ToInputForm = (cols, formik, isEdit, itemId) => {
   // Services
   // const _optionListService = useInjection(OptionListService)
   const _optionListService = new OptionListService()
-  
+
   const filmListQuery = gql`
-    query { films {
-      id
-      radiatorID
-      titleInternational
+    query {
+      films {
+        id
+        radiatorID
+        titleInternational
+      }
     }
-  }
   `
 
-const filmFestivalListQuery = gql`
-query { filmFestivals {
-  id
-  nameInternational
+  const filmFestivalListQuery = gql`
+    query {
+      filmFestivals {
+        id
+        nameInternational
+      }
+    }
+  `
+
+const personProfessionListQuery = gql`
+query {
+  personProfessions {
+    id
+    name
+  }
 }
+`
+
+const peopleListQuery = gql`
+query {
+  people {
+    id
+    displayName
+  }
 }
 `
   // Dropdowns
@@ -357,28 +340,42 @@ query { filmFestivals {
   const [relationshipFilmSubmission, setRelationshipFilmSubmission] = useState([])
   const [films, setFilms] = useState([])
   const [filmFestivals, setFilmFestivals] = useState([])
+  const [personProfessions, setPersonProfessions] = useState([])
+  const [people, setPeople] = useState([])
   const filmResult = useQuery(filmListQuery)
   const filmFestivalResult = useQuery(filmFestivalListQuery)
+  const personProfessionResult = useQuery(personProfessionListQuery)
+  const peopleResult = useQuery(peopleListQuery)
 
   // If you absolutely need to cache the mutated data you can do the below. But
-// most of the time you won't need to use useMemo at all.
-const cachedMutatedDataFilm = useMemo(() => {
-  if (filmResult.loading || filmResult.error) return null
+  // most of the time you won't need to use useMemo at all.
+  const cachedMutatedDataFilm = useMemo(() => {
+    if (filmResult.loading || filmResult.error) return null
+    // mutate data here
+    setFilms(filmResult.data.films.map((d) => ({ label: d.titleInternational, value: d.id })))
+    return filmResult.data
+  }, [filmResult.loading, filmResult.error, filmResult.data])
 
-  // mutate data here
-  setFilms(filmResult.data.films.map(d => ({label : d.titleInternational, value: d.id})))
-  return filmResult.data
-}, [filmResult.loading, filmResult.error, filmResult.data])
+  const cachedMutatedDataFilmFestival = useMemo(() => {
+    if (filmFestivalResult.loading || filmFestivalResult.error) return null
+    // mutate data here
+    setFilmFestivals(filmFestivalResult.data.filmFestivals.map((d) => ({ label: d.nameInternational, value: d.id })))
+    return filmFestivalResult.data
+  }, [filmFestivalResult.loading, filmFestivalResult.error, filmFestivalResult.data])
 
-const cachedMutatedDataFilmFestival = useMemo(() => {
-  if (filmFestivalResult.loading || filmFestivalResult.error) return null
+  const cachedMutatedDataPersonProfression = useMemo(() => {
+    if (personProfessionResult.loading || personProfessionResult.error) return null
+    // mutate data here
+    setPersonProfessions(personProfessionResult.data.personProfessions.map((d) => ({ label: d.name, value: d.id })))
+    return personProfessionResult.data
+  }, [personProfessionResult.loading, personProfessionResult.error, personProfessionResult.data])
 
-  // mutate data here
-  setFilmFestivals(filmFestivalResult.data.filmFestivals.map(d => ({label : d.nameInternational, value: d.id })))
-  return filmFestivalResult.data
-}, [filmFestivalResult.loading, filmFestivalResult.error, filmFestivalResult.data])
-
-
+  const cachedMutatedDataPeople = useMemo(() => {
+    if (peopleResult.loading || peopleResult.error) return null
+    // mutate data here
+    setPeople(peopleResult.data.people.map((d) => ({ label: d.displayName, value: d.id })))
+    return peopleResult.data
+  }, [peopleResult.loading, peopleResult.error, peopleResult.data])
 
   // const optionListService = new OptionListService()
   useEffect(() => {
@@ -403,9 +400,7 @@ const cachedMutatedDataFilmFestival = useMemo(() => {
     _optionListService.getFramerates().then((data) => setFramerates(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    _optionListService
-      .getPremierRequirements()
-      .then((data) => setPremierRequirements(data))
+    _optionListService.getPremierRequirements().then((data) => setPremierRequirements(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     _optionListService.getShootingMediums().then((data) => setShootingMediums(data))
@@ -413,8 +408,6 @@ const cachedMutatedDataFilmFestival = useMemo(() => {
   useEffect(() => {
     _optionListService.getRelationshipFilmSubmission().then((data) => setRelationshipFilmSubmission(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-
 
   const optionsList = {
     aspectRatios: aspectRatios,
@@ -428,26 +421,55 @@ const cachedMutatedDataFilmFestival = useMemo(() => {
     shootingMediums: shootingMediums,
     relationshipFilmSubmission: relationshipFilmSubmission,
     films: films,
-    filmFestivals: filmFestivals
+    filmFestivals: filmFestivals,
+    personProfessions: personProfessions,
+    people: people,
   }
+  let stop_loop = false
+  let result = cols.map((colgroup, idxgroup) => {
+    if (colgroup.colGroup && !colgroup.isRelationship)
+      return (
+        <TabPanel key={colgroup.field} header={colgroup.colGroup + (colgroup.isRelationship ? ' (relationship)' : '')} disabled={colgroup.isRelationship && !isEdit}>
+          {
+            (
+            stop_loop = false,
+            cols
+              .filter((col, idx) => idx >= idxgroup)
+              .map((col) => {
+                if (stop_loop || (col.colGroup && col.colGroup != colgroup.colGroup)) {
+                  stop_loop = true
+                  return (null)// Break from loop
+                }
+                return (
+                  <Fragment key={col.field}>
+                    <div className="p-field">{ToInputField(col, formik, optionsList)}</div>
+                  </Fragment>
+                )
+              }))
+          }
+        </TabPanel>
+      )
 
+    if (colgroup.isRelationship)
+          return (
+            <TabPanel key={colgroup.field} header={colgroup.colGroup + (colgroup.isRelationship ? ' (relationship)' : '')} disabled={colgroup.isRelationship && !isEdit}>
+              {SimpleTable(colgroup.queries, colgroup.models, colgroup.colGroup + (colgroup.isRelationship ? ' (relationship)' : ''), itemId)}
+            </TabPanel>
+          )
 
-  return cols.map((col) => {
-    return (
-      <Fragment key={col.field}>
-        {ToFormHeaderGroup(col)}
-        <div className="p-field">{ToInputField(col, formik, optionsList)}</div>
-      </Fragment>
-    )
+    return (null);
   })
+
+  return result.filter(_ => _ != null)
+
 }
 
-export const GenericInputForm = (cols, formik) => (
+export const GenericInputForm = (cols, formik, isEdit, itemId) => (
   <div className="form-demo">
     <div className="p-d-flex p-jc-center">
       <div className="card">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-          {ToInputForm(cols, formik)}
+          <TabView>{ToInputForm(cols, formik, isEdit, itemId)}</TabView>
         </form>
       </div>
       {IS_DEBUG_FORM_ENABLED && <DisplayFormikDebugState {...formik} />}
