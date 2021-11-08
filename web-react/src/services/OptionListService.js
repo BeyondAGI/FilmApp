@@ -51,7 +51,7 @@ export class OptionListService {
       .then((d) => d.data.map(row => ({label: row.label, value: row.label})))
   }
   getRelationshipFilmSubmission() {
-    return fetch('data/_relationshipFilmSubmission.json')
+    return fetch('data/relationshipFilmSubmission.json')
       .then((res) => res.json())
       .then((d) => d.data.map(row => ({label: row.label, value: row.value})))
   }
