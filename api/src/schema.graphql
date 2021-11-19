@@ -12,6 +12,14 @@ Indicates that the field is the unique identifier for the object type, and addit
 type Film {
   id: ID! @id(autogenerate: true)
   radiatorID: ID!
+  nikitaVenturesID: String # SKUs
+  filmfriendID: String
+  filmhubID: String
+  amazonID: String
+  vimeoID: String
+  eidrID: String
+  imdbID: String
+  isanNr: String
   titleInternational: String # General Info
   titleOriginal: String
   titleEN: String
@@ -79,26 +87,16 @@ type Film {
   isFilmhubLandscapeExtra01StillCreated: Boolean
   isFilmhubLandscapeExtra02StillCreated: Boolean
   isFilmhubLandscapeExtra03StillCreated: Boolean
-  isFilmhubLandscapeExtra04StillCreated: Boolean
   isFilmfriendPortraitCoverCreated: Boolean
   isFilmfriendLandscapeCoverCreated: Boolean
   isFilmfriendThumbnailCreated: Boolean
   isFilmfriendSliderCreated: Boolean
   isFilmfriendBackgroundCreated: Boolean
+  isFilmfriendPortraitCreated: Boolean
   isFilmfriendMaterialsOkQualityCheckPlatform: Boolean
-  filmhubPosterLocation: String
-  filmhubPortraitStillLocation: String
-  filmhubLandscapeStillLocation: String
-  filmhubLandscapeExtra01StillLocation: String
-  filmhubLandscapeExtra02StillLocation: String
-  filmhubLandscapeExtra03StillLocation: String
-  filmhubLandscapeExtra04StillLocation: String
+  filmhubLocation: String
   filmhubMaterialsOkQualityCheckPlatform: String
-  filmfriendPortraitCoverLocation: String
-  filmfriendLandscapeCoverLocation: String
-  filmfriendThumbnailLocation: String
-  filmfriendSliderLocation: String
-  filmfriendBackgroundLocation: String
+  filmfriendLocation: String
   vuulrVimeoLinkFilm: String # Platform specific links Vimeo
   vuulrVimeoLinkTrailer: String
   filmfreewayVimeoLinkFilm: String
@@ -288,7 +286,10 @@ type FilmFestival {
   premiereRequirement: String
   filmAge: String
   organisers: String # Management
-  directors: String
+  artisticDirector: String
+  president: String
+  founder: String
+  programManager: String
   seniorProgrammer01: String
   seniorProgrammer02: String
   seniorProgrammer03: String
