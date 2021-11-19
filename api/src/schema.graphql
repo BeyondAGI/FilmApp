@@ -307,6 +307,7 @@ type FilmFestival {
   submissionDateEarly: Date
   submissionDateRegular: Date
   submissionDateLate: Date
+  submissionFeeCurrency: String
   submissionFeeEarly: Float
   submissionFeeRegular: Float
   submissionFeesLate: Float

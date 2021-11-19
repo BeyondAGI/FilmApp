@@ -139,6 +139,7 @@ export const columnsForm = [
 { field: 'submissionDateEarly', header: 'Submission date early', type: FieldType.DATE },
 { field: 'submissionDateRegular', header: 'Submission date regular', type: FieldType.DATE },
 { field: 'submissionDateLate', header: 'Submission date date', type: FieldType.DATE },
+{ field: 'submissionFeeCurrency', header: 'Submission Fee Currency'},
   { field: 'submissionFeeEarly', header: 'Submission Fee Early ($)', type: FieldType.CURRENCY },
   { field: 'submissionFeeRegular', header: 'Submission fee regular ($)', type: FieldType.CURRENCY },
   { field: 'submissionFeesLate', header: 'Submission fee late ($)', type: FieldType.CURRENCY },
