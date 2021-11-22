@@ -214,3 +214,7 @@ img.flag {
   padding-right: 0.2rem;
   padding-left: 0.2rem;
 }
+
+.p-tabview-nav {
+  flex-wrap: wrap !important;
+}
