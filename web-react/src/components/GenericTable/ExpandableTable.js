@@ -19,6 +19,7 @@ import './styles.css'
 import { Message } from 'primereact/message'
 import { red } from '@material-ui/core/colors'
 import { fontWeight } from '@material-ui/system'
+import { MAX_LIST_ITEMS } from '../../common/constants.js'
 
 export const ExpandableTable = (Queries, Models, HeaderTitle = 'Items', HeaderVerb) => {
   // Items
@@ -72,7 +73,7 @@ export const ExpandableTable = (Queries, Models, HeaderTitle = 'Items', HeaderVe
 
   const { loading, data, error } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 3000,
+      first: MAX_LIST_ITEMS,
       offset: 0,
     },
   })

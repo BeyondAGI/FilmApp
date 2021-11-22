@@ -15,7 +15,7 @@ export const UPDATE_ITEM = gql`
       where: { id: $id }
       update: $updateInput
       ) {
-      personProfession {
+      personProfessions {
         id
       radiatorID
       name

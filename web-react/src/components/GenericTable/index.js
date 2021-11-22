@@ -19,6 +19,7 @@ import './styles.css'
 import { Message } from 'primereact/message'
 import { Skeleton } from 'primereact/skeleton'
 import { LoadingSkeleton } from './Others/LoadingSkeleton'
+import { MAX_LIST_ITEMS } from '../../common/constants.js'
 
 export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
   // Items
@@ -40,13 +41,13 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
 
   const { loading, data, error } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 3000,
+      first: MAX_LIST_ITEMS,
       offset: 0,
     },
   })
 
   const rowActionItemDetails = useQuery(Queries.GET_BY_ID, {
-    variables: {
+    variables: {  
       id: rowEdit?.id ?? 0,
     },
   })
@@ -66,6 +67,7 @@ export const GenericTable = (Queries, Models, HeaderTitle = 'Items') => {
   }
 
   const editItem = (rowData) => {
+    rowActionItemDetails.refetch()
     setRowEdit(rowData)
     setShowFormDialog(true)
   }

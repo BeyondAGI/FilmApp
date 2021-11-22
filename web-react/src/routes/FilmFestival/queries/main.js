@@ -16,7 +16,7 @@ export const UPDATE_ITEM = gql`
       update: $updateInput
       ) {
       filmFestivals {
-        id
+      id
       radiatorID
       nameInternational
       address
@@ -122,7 +122,10 @@ export const GET_BY_ID = gql`
       premiereRequirement
       filmAge
       organisers
-      directors
+      artisticDirector
+      president
+      founder
+      programManager
       seniorProgrammer01
       seniorProgrammer02
       seniorProgrammer03
@@ -140,6 +143,7 @@ export const GET_BY_ID = gql`
       submissionDateEarly
       submissionDateRegular
       submissionDateLate
+      submissionFeeCurrency
       submissionFeeEarly
       submissionFeeRegular
       submissionFeesLate
@@ -151,7 +155,7 @@ export const GET_BY_ID = gql`
       venue05
       selectionLaurel
       awardLaurel
-
+      comments
     }
   }
 `

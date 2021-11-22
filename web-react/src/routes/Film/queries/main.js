@@ -84,6 +84,14 @@ export const GET_BY_ID = gql`
     ) {
       id
       radiatorID
+      nikitaVenturesID
+      filmfriendID
+      filmhubID
+      amazonID
+      vimeoID
+      eidrID
+      imdbID
+      isanNr
       titleInternational
       titleOriginal
       titleEN
@@ -151,26 +159,16 @@ export const GET_BY_ID = gql`
       isFilmhubLandscapeExtra01StillCreated
       isFilmhubLandscapeExtra02StillCreated
       isFilmhubLandscapeExtra03StillCreated
-      isFilmhubLandscapeExtra04StillCreated
       isFilmfriendPortraitCoverCreated
       isFilmfriendLandscapeCoverCreated
       isFilmfriendThumbnailCreated
       isFilmfriendSliderCreated
       isFilmfriendBackgroundCreated
+      isFilmfriendPortraitCreated
       isFilmfriendMaterialsOkQualityCheckPlatform
-      filmhubPosterLocation
-      filmhubPortraitStillLocation
-      filmhubLandscapeStillLocation
-      filmhubLandscapeExtra01StillLocation
-      filmhubLandscapeExtra02StillLocation
-      filmhubLandscapeExtra03StillLocation
-      filmhubLandscapeExtra04StillLocation
+      filmhubLocation
       filmhubMaterialsOkQualityCheckPlatform
-      filmfriendPortraitCoverLocation
-      filmfriendLandscapeCoverLocation
-      filmfriendThumbnailLocation
-      filmfriendSliderLocation
-      filmfriendBackgroundLocation
+      filmfriendLocation
       vuulrVimeoLinkFilm
       vuulrVimeoLinkTrailer
       filmfreewayVimeoLinkFilm
@@ -227,6 +225,7 @@ export const GET_BY_ID = gql`
       filmin
       gayBingeTV
       movieBloc
+
     }
   }
 `

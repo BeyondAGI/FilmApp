@@ -20,6 +20,7 @@ import { Message } from 'primereact/message'
 import { Skeleton } from 'primereact/skeleton'
 import { LoadingSkeleton } from './Others/LoadingSkeleton'
 import { GenericAddEditRelationship } from '../Form/GenericAddEditRelationship'
+import { MAX_LIST_ITEMS } from '../../common/constants.js'
 var dot = require('dot-object')
 
 export const SimpleTable = (Queries, Models, HeaderTitle = 'Items', ParentId) => {
@@ -42,7 +43,7 @@ export const SimpleTable = (Queries, Models, HeaderTitle = 'Items', ParentId) =>
 
   const { loading, data, error, refetch } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 3000,
+      first: MAX_LIST_ITEMS,
       offset: 0,
       parentId: ParentId,
     },
@@ -69,6 +70,7 @@ export const SimpleTable = (Queries, Models, HeaderTitle = 'Items', ParentId) =>
   }
 
   const editItem = (rowData) => {
+    rowActionItemDetails.refetch()
     setRowEdit(rowData)
     setShowFormDialog(true)
   }

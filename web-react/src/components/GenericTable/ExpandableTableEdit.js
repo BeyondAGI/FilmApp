@@ -22,6 +22,7 @@ import { fontWeight } from '@material-ui/system'
 import { Button } from 'primereact/button'
 import { ScalarLeafs } from 'graphql/validation/rules/ScalarLeafs'
 import { addResolveFunctionsToSchema } from 'graphql-tools'
+import { MAX_LIST_ITEMS } from '../../common/constants.js'
 
 export const ExpandableTableEdit = (Queries, Models, HeaderTitle = 'Items', HeaderVerb) => {
   // Items
@@ -75,7 +76,7 @@ export const ExpandableTableEdit = (Queries, Models, HeaderTitle = 'Items', Head
 
   const { loading, data, error } = useQuery(Queries.GET_LIST, {
     variables: {
-      first: 3000,
+      first: MAX_LIST_ITEMS,
       offset: 0,
     },
   })

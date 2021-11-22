@@ -13,7 +13,7 @@ export const columnsTable = [
   { field: 'addressCountry', header: 'Country', isDefault: true },
   { field: 'addressCity', header: 'City' },
   { field: 'displayTags', header: 'Display tags', isDefault: true },
-  { field: 'mainEmail', header: 'Main email', colGroup: 'Contact Information' },
+  { field: 'mainEmail', header: 'Main email', colGroup: 'Contact information' },
   { field: 'countMembers', header: 'Count members', isDefault: true },
 ]
 

@@ -227,7 +227,7 @@ export default function App() {
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary = "People & Organisations" />
+                <ListItemText primary = "People and organisations" />
               </ListItem>
             </Link>
             <Link to = "/Films" className = {classes.navLink}>
@@ -235,7 +235,7 @@ export default function App() {
                 <ListItemIcon>
                   <HdIcon />
                 </ListItemIcon>
-                <ListItemText primary = "Films List" />
+                <ListItemText primary = "Films" />
               </ListItem>
             </Link>
             <Link to = "/FilmFestivals" className = {classes.navLink}>
@@ -243,7 +243,7 @@ export default function App() {
                 <ListItemIcon>
                   <CakeIcon />
                 </ListItemIcon>
-                <ListItemText primary = "Film Festivals List" />
+                <ListItemText primary = "Film festivals" />
               </ListItem>
             </Link>
             <Link to = "/FilmApplicationFeature" className = {classes.navLink}>
@@ -251,7 +251,7 @@ export default function App() {
                 <ListItemIcon>
                   <PublishIcon />
                 </ListItemIcon>
-                <ListItemText primary = "Film Application" />
+                <ListItemText primary = "Film submissions" />
               </ListItem>
             </Link>
             <Link to = "/DevTasks" className = {classes.navLink}>
@@ -259,7 +259,7 @@ export default function App() {
                 <ListItemIcon>
                   <PlaylistAddCheckIcon />
                 </ListItemIcon>
-                <ListItemText primary = "Dev Tasks List" />
+                <ListItemText primary = "Dev Tasks" />
               </ListItem>
             </Link>
           </List>
