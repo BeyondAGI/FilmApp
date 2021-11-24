@@ -9,7 +9,7 @@ export let emptyItem = {
 export const columnsTable = [
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   { field: 'id', header: 'Neo4J UUID', hidden: true },
-  { field: 'displayName', header: 'Display name', colGroup: 'Contact info' },
+  { field: 'displayName', header: 'Display name', isDefault: true, colGroup: 'Contact info' },
   { field: 'emailMain', header: 'Email main', isDefault: true },
   { field: 'addressHomeCountryIso', header: 'Country (ISO)', isDefault: true },
   { field: 'phoneFix', header: 'Phone' },
