@@ -176,7 +176,6 @@ export const GET_BY_ID = gql`
       isFilmhubLandscapeExtra01StillCreated
       isFilmhubLandscapeExtra02StillCreated
       isFilmhubLandscapeExtra03StillCreated
-      isFilmhubLandscapeExtra04StillCreated
       isFilmfriendPortraitCoverCreated
       isFilmfriendLandscapeCoverCreated
       isFilmfriendThumbnailCreated

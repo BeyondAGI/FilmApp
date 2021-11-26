@@ -217,4 +217,5 @@ img.flag {
 
 .p-tabview-nav {
   flex-wrap: wrap !important;
+  border-bottom-width: inherit !important;
 }
