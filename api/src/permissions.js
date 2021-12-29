@@ -12,8 +12,9 @@ const isAuthenticated = rule()((parent, args, { user }) => {
   return user !== null
 })
 
-const isAdmin = rule()((parent, args, { user }) => {
-  return checkPermission(user, 'admin:all')
+const isAdmin = rule()(async (parent, args, ctx, info) => {
+  console.log(ctx)
+  return checkPermission(ctx.user, 'admin:all')
 })
 // export default shield({
 //       Query: {
