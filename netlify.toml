@@ -1,7 +1,6 @@
 [build]
   command = "npm i && cd api && npm i && cd ../web-react && npm i && cd .. && npm run build"
   publish = "web-react/build"
-  functions = "api/build/functions"
 
 [dev]
   command = "npm start"
