@@ -54,7 +54,6 @@
     "graphql-tag": "^2.12.5",
     "inversify": "^5.1.1",
     "inversify-react": "^1.0.0",
-    "netlify-cli": "^8.4.2",
     "package.json": "^2.0.1",
     "primeflex": "2.0.0",
     "primeicons": "^4.1.0",
