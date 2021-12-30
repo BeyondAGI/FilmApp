@@ -7,6 +7,60 @@ import clsx from 'clsx'
 // import RatingsChart from './RatingsChart'
 import FilmCount from './FilmCount'
 import FilmFestivalCount from './FilmFestivalCount'
+import OrganisationCount from './OrganisationCount'
+import PersonCount from './PersonCount'
+import PersonProfessionCount from './PersonProfessionCount'
+
+import Image1 from '../../assets/img/tent.png' // Import using relative path
+import Image2 from '../../assets/img/clapperboard.png'
+import Image3 from '../../assets/img/office-building.png'
+import Image4 from '../../assets/img/scientist.png'
+import Image5 from '../../assets/img/bag.png'
+//D8D8D8
+const styles1 = {
+  paperContainer: {
+    backgroundImage: `url(${Image1})`,
+    backgroundSize: '20%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+}
+const styles2 = {
+  paperContainer: {
+    backgroundImage: `url(${Image2})`,
+    backgroundSize: '20%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+}
+
+const styles3 = {
+  paperContainer: {
+    backgroundImage: `url(${Image3})`,
+    backgroundSize: '35%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+}
+
+const styles4 = {
+  paperContainer: {
+    backgroundImage: `url(${Image4})`,
+    backgroundSize: '35%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+}
+
+const styles5 = {
+  paperContainer: {
+    backgroundImage: `url(${Image5})`,
+    backgroundSize: '35%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+}
+
 // import RecentReviews from './RecentReviews'
 export default function Dashboard() {
   const theme = useTheme()
@@ -20,9 +74,10 @@ export default function Dashboard() {
       display: 'flex',
       overflow: 'auto',
       flexDirection: 'column',
+      elevation: 3,
     },
     fixedHeight: {
-      height: 240,
+      height: 340,
     },
   }))
   const classes = useStyles(theme)
@@ -31,23 +86,32 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       <Grid container spacing={4}>
-        {/* Ratings Chart */}
         <Grid item xs={12} md={8} lg={7}>
-          <Paper className={fixedHeightPaper}>
-          <FilmFestivalCount />
+          <Paper className={fixedHeightPaper} elevation={5} style={styles1.paperContainer}>
+            <FilmFestivalCount />
           </Paper>
         </Grid>
-        {/* User Count */}
         <Grid item xs={12} md={4} lg={5}>
-          <Paper className={fixedHeightPaper}>
+          <Paper className={fixedHeightPaper} elevation={5} style={styles2.paperContainer}>
             <FilmCount />
           </Paper>
         </Grid>
-        {/* Recent Reviews */}
-        <Grid item xs={12}>
-          {/* <Paper className={classes.paper}>
-            <RecentReviews />
-          </Paper> */}
+      </Grid>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={8} lg={4}>
+          <Paper className={fixedHeightPaper} elevation={5} style={styles3.paperContainer}>
+            <OrganisationCount />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4} lg={4}>
+          <Paper className={fixedHeightPaper} elevation={5} style={styles4.paperContainer}>
+            <PersonCount />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4} lg={4}>
+          <Paper className={fixedHeightPaper} elevation={5} style={styles5.paperContainer}>
+            <PersonProfessionCount />
+          </Paper>
         </Grid>
       </Grid>
     </React.Fragment>

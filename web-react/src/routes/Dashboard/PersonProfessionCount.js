@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const GET_COUNT_QUERY = gql`
   query {
-    aggregateFilm {
+    aggregatePersonProfession {
       count
     }
   }
@@ -29,18 +29,13 @@ export default function Deposits() {
   if (error) return <p>Error</p>
   return (
     <React.Fragment>
-      <Title>Total Films</Title>
+      <Title>Total Professions</Title>
       <Typography component="p" variant="h4">
-        {loading ? 'Loading...' : data.aggregateFilm.count}
+        {loading ? 'Loading...' : data.aggregatePersonProfession.count}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        films found
+        professions found
       </Typography>
-      <div>
-        <Link to="/films" className={classes.navLink}>
-          View films
-        </Link>
-      </div>
     </React.Fragment>
   )
 }

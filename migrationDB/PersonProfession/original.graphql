@@ -1,0 +1,214 @@
+#https://csvjson.com/json_beautifier
+#https://jsonformatter.org/graphql-formatter
+
+mutation addPersonProfession {
+  addPersonProfession(
+    input: [
+      {
+        #id: "113dadcf-569b-46d2-a140-e10c289b550a",
+        radiatorID: "PP_0001",
+        name: "Account manager",
+      },
+      {
+        #id: "3bcd7ec8-5c30-4c92-b439-0e5b47b738cb",
+        radiatorID: "PP_0002",
+        name: "Actor",
+      },
+      {
+        #id: "6afdc2c8-6bcb-4774-8f7c-2c6536fea311",
+        radiatorID: "PP_0003",
+        name: "Actress",
+      },
+      {
+        #id: "f7b23328-c60a-4d0f-bcc5-8f08031963b0",
+        radiatorID: "PP_0004",
+        name: "Animator",
+      },
+      {
+        #id: "8c242b97-3e02-4d8d-91b2-87ba09a35c1d",
+        radiatorID: "PP_0005",
+        name: "Aquisition manager",
+      },
+      {
+        #id: "cab29c7c-5795-4500-9dba-68d7806eba64",
+        radiatorID: "PP_0006",
+        name: "Art director",
+      },
+      {
+        #id: "f80274a0-80fa-40a8-ba6d-d2ecda09fe51",
+        radiatorID: "PP_0007",
+        name: "Boom operator",
+      },
+      {
+        #id: "6fa65bc5-db9e-4f62-a091-b89ed61e20f7",
+        radiatorID: "PP_0008",
+        name: "Casting director",
+      },
+      {
+        #id: "67c3d8d2-424f-48ac-a7d2-7c8d846a941d",
+        radiatorID: "PP_0009",
+        name: "CEO",
+      },
+      {
+        #id: "ead43d67-baf2-4cfd-b960-b85a1944a09d",
+        radiatorID: "PP_0010",
+        name: "Colorist",
+      },
+      {
+        #id: "4e8d50ef-5a38-4fd1-a078-aaf7f5f2d339",
+        radiatorID: "PP_0011",
+        name: "Composer",
+      },
+      {
+        #id: "d4bf3119-6a64-4a41-8669-59a5e3ab60b0",
+        radiatorID: "PP_0012",
+        name: "Costume designer",
+      },
+      {
+        #id: "8b522690-cac1-4cf0-a326-5e366637d91c",
+        radiatorID: "PP_0013",
+        name: "Curator",
+      },
+      {
+        #id: "83243f75-8a64-4433-8ce3-5d92689b1c09",
+        radiatorID: "PP_0014",
+        name: "Director of photography",
+      },
+      {
+        #id: "f0d4eece-1b02-48be-99f7-679ae34296a0",
+        radiatorID: "PP_0015",
+        name: "Editor",
+      },
+      {
+        #id: "75e1afdc-44b4-4541-8d5d-04ac4ce6f4df",
+        radiatorID: "PP_0016",
+        name: "Executive producer",
+      },
+      {
+        #id: "ec5653bb-42f2-40bb-9022-0fcb81ce7e64",
+        radiatorID: "PP_0017",
+        name: "Extra",
+      },
+      {
+        #id: "232aa384-745e-42ce-9966-72ea3d6ce77f",
+        radiatorID: "PP_0018",
+        name: "Film director",
+      },
+      {
+        #id: "6bfed208-53a4-4a40-bd06-d3bc30f72f50",
+        radiatorID: "PP_0019",
+        name: "Film programmer",
+      },
+      {
+        #id: "084a66e7-3c5f-47a9-b025-978451ab88c9",
+        radiatorID: "PP_0020",
+        name: "First assistant director",
+      },
+      {
+        #id: "a18e3cef-34cf-404f-a9db-e8952029a6f5",
+        radiatorID: "PP_0021",
+        name: "Gaffer",
+      },
+      {
+        #id: "957fa0e5-49bc-4d5b-988a-d4f92ff83c83",
+        radiatorID: "PP_0022",
+        name: "Grip",
+      },
+      {
+        #id: "1409d3ed-e884-4331-9c4c-c6df801a5b36",
+        radiatorID: "PP_0023",
+        name: "Makeup artist",
+      },
+      {
+        #id: "084eddd4-7d53-4b55-9ee9-500e6dc8787d",
+        radiatorID: "PP_0024",
+        name: "Manager",
+      },
+      {
+        #id: "7dd94249-43fc-43ce-9fa3-2b0f0313358b",
+        radiatorID: "PP_0025",
+        name: "Musician",
+      },
+      {
+        #id: "f4f4c38e-d6ed-4afa-8f6b-15cc196805c2",
+        radiatorID: "PP_0026",
+        name: "Post-production manager",
+      },
+      {
+        #id: "ee375bdb-acb5-4711-81a9-55f6a3a9fa51",
+        radiatorID: "PP_0027",
+        name: "Post-production supervisor",
+      },
+      {
+        #id: "89f10406-3eed-496f-8ad0-8496d3f9544a",
+        radiatorID: "PP_0028",
+        name: "Producer",
+      },
+      {
+        #id: "5572760a-4608-4807-9fb5-57a5a187c0a1",
+        radiatorID: "PP_0029",
+        name: "Production assistant",
+      },
+      {
+        #id: "b1df84d5-922f-4398-9237-d6a83c809e5e",
+        radiatorID: "PP_0030",
+        name: "Production desinger",
+      },
+      {
+        #id: "fae508dc-6175-48fc-b1cf-c0bb320545e4",
+        radiatorID: "PP_0031",
+        name: "Production manager",
+      },
+      {
+        #id: "aad3214e-3957-4b66-b33d-8761aed0d59e",
+        radiatorID: "PP_0032",
+        name: "Publicist",
+      },
+      {
+        #id: "eef28fdf-c361-4281-aa6a-a3fb3e08a13d",
+        radiatorID: "PP_0033",
+        name: "Re-recording mixer",
+      },
+      {
+        #id: "a59cf5fc-b067-4a40-bc4a-9664f03ed9ee",
+        radiatorID: "PP_0034",
+        name: "Sales agent",
+      },
+      {
+        #id: "ec98b732-1fe9-401f-8c0e-e432019e19e7",
+        radiatorID: "PP_0035",
+        name: "Scriptwriter",
+      },
+      {
+        #id: "178bcf9d-4fcd-4076-b4c6-a25ff4e16c59",
+        radiatorID: "PP_0036",
+        name: "Sound editor",
+      },
+      {
+        #id: "508feb9c-fa13-4d9a-bb50-5b65591d9b79",
+        radiatorID: "PP_0037",
+        name: "Steadicam operator",
+      },
+      {
+        #id: "1547427a-99e0-46be-82e0-b597dea434ef",
+        radiatorID: "PP_0038",
+        name: "Still photographer",
+      },
+      {
+        #id: "a316d8e0-565c-4bf0-9130-74c66e7eaa3d",
+        radiatorID: "PP_0039",
+        name: "Stuntman",
+      },
+      {
+        #id: "2009ac62-fceb-45df-a1d9-025f87dbde21",
+        radiatorID: "PP_0040",
+        name: "Title designer",
+      },
+      {
+        #id: "446deea1-ea7c-4bc9-a9d0-e9dab0a65661",
+        radiatorID: "PP_0041",
+        name: "VFX artist",
+      }
+    ]
+  )
+}

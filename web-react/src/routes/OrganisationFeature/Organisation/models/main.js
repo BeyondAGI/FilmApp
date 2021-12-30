@@ -18,7 +18,7 @@ export const columnsTable = [
 ]
 
 export const columnsForm = [
-  { field: 'id', header: 'Neo4J UUID', hidden: true },
+  { field: 'id', header: 'DGraph ID', hidden: true },
   { field: 'radiatorID', header: 'Radiator ID', colGroup: 'ID' },
   { field: 'name', header: 'Name', colGroup: 'General info' },
   { field: 'type', header: 'Type' },
@@ -48,5 +48,5 @@ export const columnsForm = [
   { field: 'instagramProfile', header: 'Instagram profile' },
   { field: 'youtubeProfile', header: 'Youtube channel' },
   { field: 'twitterProfile', header: 'Twitter profile' },
-  { field: 'hasMembers', header: 'Members', colGroup: 'People', type: FieldType.DROPDOWN, options: 'people', isRelationship: true, models: ModelsPeople, queries: QueriesPeople}
+  { field: 'hasMembers', header: 'Members', colGroup: 'People', type: FieldType.DROPDOWN, options: 'people', isRelationship: true, models: ModelsPeople, queries: QueriesPeople },
 ]

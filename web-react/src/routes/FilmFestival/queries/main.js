@@ -1,47 +1,43 @@
 import { gql } from '@apollo/client'
 
 export const DELETE_ITEMS = gql`
-  mutation deleteFilmFestivals($where: FilmFestivalWhere!) {
-    deleteFilmFestivals(where: $where) {
-        nodesDeleted
-        relationshipsDeleted
+  mutation deleteFilmFestival($filter: FilmFestivalFilter!) {
+    deleteFilmFestival(filter: $filter) {
+      msg
+      numUids
     }
   }
 `
 
 export const UPDATE_ITEM = gql`
-  mutation updateFilmFestivals($id: ID!, $updateInput: FilmFestivalUpdateInput) {
-    updateFilmFestivals(
-      where: { id: $id }
-      update: $updateInput
-      ) {
-      filmFestivals {
-      id
-      radiatorID
-      nameInternational
-      address
-      about
-      email
-      telephone
-      level
-      foundingYear
-      locatedInCountry
-      takesPlaceInCity
-      acceptsFilmLenghts
-      acceptsFilmGenre01
-      rulesAndRegulations
-      premiereRequirement
-      filmAge
+  mutation updateFilmFestival($id: [ID!], $updateInput: FilmFestivalPatch) {
+    updateFilmFestival(input: { filter: { id: $id }, set: $updateInput }) {
+      filmFestival {
+        id
+        radiatorID
+        nameInternational
+        address
+        about
+        email
+        telephone
+        level
+        foundingYear
+        locatedInCountry
+        takesPlaceInCity
+        acceptsFilmLenghts
+        acceptsFilmGenre01
+        rulesAndRegulations
+        premiereRequirement
+        filmAge
       }
-      }
+    }
   }
 `
 
-
 export const CREATE_ITEMS = gql`
-  mutation createFilmFestivals($input: [FilmFestivalCreateInput!]!) {
-    createFilmFestivals(input: $input) {
-      filmFestivals {
+  mutation addFilmFestival($input: [AddFilmFestivalInput!]!) {
+    addFilmFestival(input: $input) {
+      filmFestival {
         id
         radiatorID
         nameInternational
@@ -51,16 +47,8 @@ export const CREATE_ITEMS = gql`
 `
 
 export const GET_LIST = gql`
-  query usersPaginateQuery(
-      $first  : Int
-      $offset : Int
-    # $orderBy: [FilmFestivalSort]
-      $filter : FilmFestivalWhere
-  ) {
-    filmFestivals(
-      options: { limit: $first, offset: $offset, sort: [{ radiatorID: DESC }] }
-      where  : $filter
-    ) {
+  query usersPaginateQuery($first: Int, $offset: Int, $filter: FilmFestivalFilter, $order: FilmFestivalOrder) {
+    queryFilmFestival(first: $first, offset: $offset, filter: $filter, order: $order) {
       id
       radiatorID
       nameInternational
@@ -78,16 +66,11 @@ export const GET_LIST = gql`
       premiereRequirement
       filmAge
     }
-    filmFestivalCount
   }
 `
 export const GET_BY_ID = gql`
-  query getItemDetails(
-    $id: ID!
-  ) {
-    filmFestivals(
-      where: { id: $id }
-    ) {
+  query getItemDetails($id: ID!) {
+    getFilmFestival(id: $id) {
       id
       radiatorID
       nameInternational

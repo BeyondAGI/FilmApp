@@ -1,38 +1,34 @@
 import { gql } from '@apollo/client'
 
 export const DELETE_ITEMS = gql`
-  mutation deletePeople($where: PersonWhere!) {
-    deletePeople(where: $where) {
-        nodesDeleted
-        relationshipsDeleted
+  mutation deletePersons($filter: PersonFilter!) {
+    deletePerson(filter: $filter) {
+      msg
+      numUids
     }
   }
 `
 
 export const UPDATE_ITEM = gql`
-  mutation updatePeople($id: ID!, $updateInput: PersonUpdateInput) {
-    updatePeople(
-      where: { id: $id }
-      update: $updateInput
-      ) {
-      people {
+  mutation updatePersons($id: [ID!], $updateInput: PersonPatch) {
+    updatePerson(input: { filter: { id: $id }, set: $updateInput }) {
+      person {
         id
-      radiatorID
-      displayName
-      emailMain
-      addressHomeCountryIso
-      phoneFix
-      preferredLanguage
+        radiatorID
+        displayName
+        emailMain
+        addressHomeCountryIso
+        phoneFix
+        preferredLanguage
       }
-      }
+    }
   }
 `
 
-
 export const CREATE_ITEMS = gql`
-  mutation createPeople($input: [PersonCreateInput!]!) {
-    createPeople(input: $input) {
-      people {
+  mutation addPerson($input: [AddPersonInput!]!) {
+    addPerson(input: $input) {
+      person {
         id
         radiatorID
       }
@@ -41,16 +37,8 @@ export const CREATE_ITEMS = gql`
 `
 
 export const GET_LIST = gql`
-  query usersPaginateQuery(
-      $first  : Int
-      $offset : Int
-    # $orderBy: [PersonSort]
-      $filter : PersonWhere
-  ) {
-    people(
-      options: { limit: $first, offset: $offset, sort: [{ radiatorID: DESC }] }
-      where  : $filter
-    ) {
+  query usersPaginateQuery($first: Int, $offset: Int, $filter: PersonFilter, $order: PersonOrder) {
+    queryPerson(first: $first, offset: $offset, filter: $filter, order: $order) {
       id
       radiatorID
       displayName
@@ -59,16 +47,11 @@ export const GET_LIST = gql`
       phoneFix
       preferredLanguage
     }
-    personCount
   }
 `
 export const GET_BY_ID = gql`
-  query getItemDetails(
-    $id: ID!
-  ) {
-    people(
-      where: { id: $id }
-    ) {
+  query getItemDetails($id: ID!) {
+    getPerson(id: $id) {
       id
       radiatorID
       displayName

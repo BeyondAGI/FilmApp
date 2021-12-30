@@ -1,44 +1,40 @@
 import { gql } from '@apollo/client'
 
 export const DELETE_ITEMS = gql`
-  mutation deleteFilms($where: FilmWhere!) {
-    deleteFilms(where: $where) {
-        nodesDeleted
-        relationshipsDeleted
+  mutation deleteFilm($filter: FilmFilter!) {
+    deleteFilm(filter: $filter) {
+      msg
+      numUids
     }
   }
 `
 
 export const UPDATE_ITEM = gql`
-  mutation updateFilms($id: ID!, $updateInput: FilmUpdateInput) {
-    updateFilms(
-      where: { id: $id }
-      update: $updateInput
-      ) {
-      films {
+  mutation updateFilm($id: [ID!], $updateInput: FilmPatch) {
+    updateFilm(input: { filter: { id: $id }, set: $updateInput }) {
+      film {
         id
-      radiatorID
-      titleInternational
-      titleOriginal
-      loglineEN
-      synopsisLongEN
-      duration
-      productionYear
-      productionMonth
-      worldPremiereDate
-      status
-      framerate
-      ageRating
+        radiatorID
+        titleInternational
+        titleOriginal
+        loglineEN
+        synopsisLongEN
+        duration
+        productionYear
+        productionMonth
+        worldPremiereDate
+        status
+        framerate
+        ageRating
       }
-      }
+    }
   }
 `
 
-
 export const CREATE_ITEMS = gql`
-  mutation createFilms($input: [FilmCreateInput!]!) {
-    createFilms(input: $input) {
-      films {
+  mutation addFilm($input: [AddFilmInput!]!) {
+    addFilm(input: $input) {
+      film {
         id
         radiatorID
         titleInternational
@@ -48,16 +44,8 @@ export const CREATE_ITEMS = gql`
 `
 
 export const GET_LIST = gql`
-  query usersPaginateQuery(
-      $first  : Int
-      $offset : Int
-    # $orderBy: [FilmSort]
-      $filter : FilmWhere
-  ) {
-    films(
-      options: { limit: $first, offset: $offset, sort: [{ radiatorID: DESC }] }
-      where  : $filter
-    ) {
+  query usersPaginateQuery($first: Int, $offset: Int, $filter: FilmFilter, $order: FilmOrder) {
+    queryFilm(first: $first, offset: $offset, filter: $filter, order: $order) {
       id
       radiatorID
       titleInternational
@@ -72,16 +60,11 @@ export const GET_LIST = gql`
       framerate
       ageRating
     }
-    filmCount
   }
 `
 export const GET_BY_ID = gql`
-  query getItemDetails(
-    $id: ID!
-  ) {
-    films(
-      where: { id: $id }
-    ) {
+  query getItemDetails($id: ID!) {
+    getFilm(id: $id) {
       id
       radiatorID
       nikitaVenturesID
@@ -225,7 +208,6 @@ export const GET_BY_ID = gql`
       filmin
       gayBingeTV
       movieBloc
-
     }
   }
 `

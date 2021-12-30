@@ -322,17 +322,7 @@ type FilmFestival {
   comments: String # Added in sprint 3
 }
 
-type DevTask {
-  id: ID! @id(autogenerate: true)
-  title: String
-  description: String
-  creationDate: DateTime
-  comments: String
-  priority: Int
-  assignedToSprint: String
-}
 
-# extend type DevTask @auth(rules: [{ isAuthenticated: true }])
 
 type User {
   user_id: ID!
@@ -481,7 +471,6 @@ type Query {
   filmCount: Int! @cypher(statement: "MATCH (u:Film) RETURN COUNT(u)")
   filmFestivalCount: Int!
   @cypher(statement: "MATCH (u:FilmFestival) RETURN COUNT(u)")
-  devTaskCount: Int! @cypher(statement: "MATCH (u:DevTask) RETURN COUNT(u)")
   organisationCount: Int! @cypher(statement: "MATCH (u:Organisation) RETURN COUNT(u)")
   personCount: Int! @cypher(statement: "MATCH (u:Person) RETURN COUNT(u)")
   personProfessionCount: Int! @cypher(statement: "MATCH (u:PersonProfession) RETURN COUNT(u)")

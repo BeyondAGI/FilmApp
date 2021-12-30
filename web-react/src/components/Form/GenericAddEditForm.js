@@ -13,7 +13,7 @@ import { useMutation } from '@apollo/client'
 import { ToastSuccessError } from '../Toast/ToastMessages'
 import { FormDialogFooter } from './FormDialogFooter'
 
-export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFormDialog, toast, itemData }) => {
+export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFormDialog, toast, itemData, refetch }) => {
   // Other
   const [showToast, setShowToast] = useState(false)
   const [formData, setFormData] = useState({})
@@ -25,7 +25,7 @@ export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFor
   })
 
   const formik = useFormik({
-    initialValues: itemData?.[Object.keys(itemData)[0]][0] ?? Models.emptyItem,
+    initialValues: itemData ? itemData[[Object.keys(itemData)[0]][0]] : Models.emptyItem,
     enableReinitialize: true,
     validate: (data) => {
       let errors = {}
@@ -35,9 +35,10 @@ export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFor
       const { __typename, id, ...rest } = data
       setFormData(data)
       if (data.id) {
-        await edit({ variables: { id: data.id, updateInput: rest } })
+        await edit({ variables: { id: [data.id], updateInput: rest } })
       } else {
         await create({ variables: { input: [data] } })
+        refetch()
       }
 
       setShowToast(true)
@@ -65,7 +66,7 @@ export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFor
         // createRelationshipResult.error
       )}
       <Dialog visible={showFormDialog} style={{ width: '900px' }} header="Add/Edit Form" maskClassName={{ zIndex: '2500' }} modal baseZIndex="2000" className="p-fluid" footer={FormDialogFooter(hideDialog, formik.handleSubmit)} onHide={hideDialog}>
-        {GenericInputForm(Models.columnsForm, formik, formik.values?.id != undefined ? true : false, itemData?.[Object.keys(itemData)[0]][0].id)}
+        {GenericInputForm(Models.columnsForm, formik, formik.values?.id != undefined ? true : false, itemData ? itemData[[Object.keys(itemData)[0]][0]] : null)}
       </Dialog>
     </Fragment>
   )

@@ -15,8 +15,10 @@ const useStyles = makeStyles({
 })
 
 const GET_COUNT_QUERY = gql`
-  {
-    filmFestivalCount
+  query {
+    aggregateFilmFestival {
+      count
+    }
   }
 `
 
@@ -29,7 +31,7 @@ export default function Deposits() {
     <React.Fragment>
       <Title>Total Film Festivals</Title>
       <Typography component="p" variant="h4">
-        {loading ? 'Loading...' : data.filmFestivalCount}
+        {loading ? 'Loading...' : data.aggregateFilmFestival.count}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         Film festivals found
