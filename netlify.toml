@@ -14,5 +14,5 @@
   
 [[redirects]]
   from = "/graphql"
-  to = "/.netlify/functions/graphql"
+  to = "https://nameless-brook-310449.eu-central-1.aws.cloud.dgraph.io/graphql"
   status = 200
