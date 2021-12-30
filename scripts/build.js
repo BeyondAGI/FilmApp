@@ -1,19 +1,13 @@
 const concurrently = require('concurrently')
 
-const {
-  API_DIR,
-  TEMPLATE_DIR,
-  runner,
-  concurrentOpts,
-  templateName,
-} = require('./common')
+const { API_DIR, TEMPLATE_DIR, runner, concurrentOpts, templateName } = require('./common')
 
 const jobs = [
-  {
-    name: 'api',
-    command: `cd ${API_DIR} && ${runner} run build`,
-    prefixColor: 'green',
-  },
+  // {
+  //   name: 'api',
+  //   command: `cd ${API_DIR} && ${runner} run build`,
+  //   prefixColor: 'green',
+  // },
 ]
 
 if (templateName === 'Flutter') {
