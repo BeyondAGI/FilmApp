@@ -7,7 +7,7 @@ import React from 'react'
 // https://www.youtube.com/watch?v=vqHkwTWbaUk&t=4922s&ab_channel=ApolloGraphQL
 
 function ApolloWrapper({ children }) {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
   const [bearerToken, setBearerToken] = useState('')
 
   useEffect(() => {
@@ -26,10 +26,11 @@ function ApolloWrapper({ children }) {
     if (!isAuthenticated) {
       return headers
     }
-    const token = await getAccessTokenSilently()
+    const token = await getIdTokenClaims()
     return {
       headers: {
         ...headers,
+        // 'Authorization': `Bearer ${bearerToken}`,
         'X-Auth-Token': token ? token.__raw : '',
       },
     }

@@ -6,10 +6,9 @@ import registerServiceWorker from './registerServiceWorker'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import { setContext } from '@apollo/client/link/context';
+import { setContext } from '@apollo/client/link/context'
 import ApolloWrapper from './components/ApolloWrapper'
 // https://www.youtube.com/watch?v=Ay7-RyX9XPM&list=PL9Hl4pk2FsvUjfSsxLolVToO5t1hwEIKK&index=9&ab_channel=Neo4j
-
 
 const theme = createMuiTheme({
   palette: {
@@ -31,10 +30,10 @@ const Main = () => (
     domain={domain}
     clientId={clientId}
     redirectUri={window.location.origin}
-    audience={audience}
+    // audience={audience}
   >
     <ApolloWrapper>
-    <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
     </ApolloWrapper>
