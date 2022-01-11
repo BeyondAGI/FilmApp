@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import Film from './routes/Film'
@@ -149,7 +148,7 @@ export default function App() {
               </IconButton>
               <img className={classes.appBarImage} src="img/logo_radiator.svg" alt="Radiator logo" />
               <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                WebApp 2021 (version 0.4.1)
+                WebApp 2021 (version 0.4.2)
               </Typography>
               <AuthenticationButton></AuthenticationButton>
               <Profile></Profile>

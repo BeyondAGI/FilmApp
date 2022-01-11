@@ -12,6 +12,7 @@ import { GenericInputForm } from './GenericInputForm'
 import { useMutation } from '@apollo/client'
 import { ToastSuccessError } from '../Toast/ToastMessages'
 import { FormDialogFooter } from './FormDialogFooter'
+import * as Sentry from '@sentry/react'
 
 export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFormDialog, toast, itemData, refetch }) => {
   // Other
@@ -35,8 +36,22 @@ export const GenericAddEditForm = ({ Queries, Models, showFormDialog, setShowFor
       const { __typename, id, ...rest } = data
       setFormData(data)
       if (data.id) {
+        Sentry.addBreadcrumb({
+          category: 'UPDATE_ITEM',
+          message: JSON.stringify(rest),
+          level: Sentry.Severity.Info,
+        })
+        Sentry.configureScope((scope) => scope.setTransactionName('UPDATE_ITEM'))
+        Sentry.captureMessage('Update of ' + __typename)
         await edit({ variables: { id: [data.id], updateInput: rest } })
       } else {
+        Sentry.addBreadcrumb({
+          category: 'CREATE_ITEM',
+          message: JSON.stringify(rest),
+          level: Sentry.Severity.Info,
+        })
+        Sentry.configureScope((scope) => scope.setTransactionName('CREATE_ITEM'))
+        Sentry.captureMessage('Creation of ' + __typename)
         await create({ variables: { input: [data] } })
         refetch()
       }

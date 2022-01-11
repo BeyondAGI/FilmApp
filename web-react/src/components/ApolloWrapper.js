@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client'
+import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider, ApolloLink } from '@apollo/client'
 import { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { setContext } from '@apollo/link-context'
+import { SentryLink } from 'apollo-link-sentry'
 import React from 'react'
 
 // https://www.youtube.com/watch?v=vqHkwTWbaUk&t=4922s&ab_channel=ApolloGraphQL
@@ -55,11 +56,11 @@ function ApolloWrapper({ children }) {
   // })
 
   const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: ApolloLink.from([new SentryLink({ uri: 'https://nameless-brook-310449.eu-central-1.aws.cloud.dgraph.io/graphql', attachBreadcrumbs: { includeQuery: true, includeVariables: true } }), httpLink]),
     cache: new InMemoryCache(),
-    fetchOptions: {
-      mode: 'no-cors',
-    },
+    // fetchOptions: {
+    //   mode: 'no-cors',
+    // },
   })
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>
