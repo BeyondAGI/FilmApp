@@ -14,5 +14,5 @@
   
 [[redirects]]
   from = "/graphql"
-  to = "https://nameless-brook-340115.eu-central-1.aws.cloud.dgraph.io/graphql"
+  to = "nameless-brook-310449.grpc.eu-central-1.aws.cloud.dgraph.io:443"
   status = 200
